@@ -1,0 +1,62 @@
+<dashboard version="1.1" theme="dark">
+  <label>TRIDENT-AI Command Centre</label>
+  <description>Autonomous Incident Intelligence — Zero-Touch Detection &amp; Response</description>
+
+  <row>
+    <panel>
+      <title>🔱 Active Incidents</title>
+      <table>
+        <search>
+          <query>index=trident_incidents sourcetype=trident:incident status="OPEN" | dedup incident_id | sort -severity_score | head 20 | table incident_id, timestamp, severity, severity_score, title, confidence, status</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <refresh>30s</refresh>
+        </search>
+        <option name="drilldown">row</option>
+        <option name="count">20</option>
+      </table>
+    </panel>
+  </row>
+
+  <row>
+    <panel>
+      <title>📊 CDTSM Metric Forecast</title>
+      <chart>
+        <search>
+          <query>index=trident_incidents sourcetype=trident:incident | head 1 | spath output=actual path=agent_trace.telemetry_sentinel.actual_vs_forecast.actual | spath output=forecast path=agent_trace.telemetry_sentinel.actual_vs_forecast.forecast | eval metric_type="Payments Latency (ms)" | table metric_type, actual, forecast</query>
+          <earliest>-4h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="charting.chart">line</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.legend.placement">bottom</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>🛡️ Agent Status</title>
+      <single>
+        <search>
+          <query>index=trident_audit sourcetype=trident:audit | stats latest(status) as status by agent_name | eval icon=case(status="COMPLETE", "✅", status="INVESTIGATING", "🔄", status="ERROR", "❌", 1=1, "⏸️") | eval display=icon." ".agent_name." — ".status | table display</query>
+          <earliest>-5m@m</earliest>
+          <latest>now</latest>
+          <refresh>15s</refresh>
+        </search>
+      </single>
+    </panel>
+  </row>
+
+  <row>
+    <panel>
+      <title>⚡ MCP Audit Trail</title>
+      <table>
+        <search>
+          <query>index=trident_audit sourcetype=trident:audit | sort -_time | head 50 | table _time, rpc_id, method, status_code, security_violation | eval security_violation=if(security_violation="true", "⚠️ VIOLATION", "✅ CLEAN")</query>
+          <earliest>-1h@h</earliest>
+          <latest>now</latest>
+          <refresh>15s</refresh>
+        </search>
+        <option name="count">20</option>
+      </table>
+    </panel>
+  </row>
+</dashboard>

@@ -1,0 +1,1264 @@
+{
+  "metrics": [
+    {
+      "time": "2026-06-08T01:41:44Z",
+      "metric": "payments.latency_ms",
+      "value": 128.09,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:41:44Z",
+      "metric": "api.cpu_percent",
+      "value": 34.41,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:41:44Z",
+      "metric": "auth.request_rate",
+      "value": 59.42,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:41:44Z",
+      "metric": "api.error_rate",
+      "value": 0.35,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:42:44Z",
+      "metric": "payments.latency_ms",
+      "value": 119.98,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:42:44Z",
+      "metric": "api.cpu_percent",
+      "value": 29.95,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:42:44Z",
+      "metric": "auth.request_rate",
+      "value": 45.09,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:42:44Z",
+      "metric": "api.error_rate",
+      "value": 0.11,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:43:44Z",
+      "metric": "payments.latency_ms",
+      "value": 127.02,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:43:44Z",
+      "metric": "api.cpu_percent",
+      "value": 34.43,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:43:44Z",
+      "metric": "auth.request_rate",
+      "value": 35.38,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:43:44Z",
+      "metric": "api.error_rate",
+      "value": 0.58,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:44:44Z",
+      "metric": "payments.latency_ms",
+      "value": 123.52,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:44:44Z",
+      "metric": "api.cpu_percent",
+      "value": 37.39,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:44:44Z",
+      "metric": "auth.request_rate",
+      "value": 54.29,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:44:44Z",
+      "metric": "api.error_rate",
+      "value": 0.61,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:45:44Z",
+      "metric": "payments.latency_ms",
+      "value": 109.44,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:45:44Z",
+      "metric": "api.cpu_percent",
+      "value": 28.21,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:45:44Z",
+      "metric": "auth.request_rate",
+      "value": 51.27,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:45:44Z",
+      "metric": "api.error_rate",
+      "value": 0.69,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:46:44Z",
+      "metric": "payments.latency_ms",
+      "value": 108.13,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:46:44Z",
+      "metric": "api.cpu_percent",
+      "value": 36.99,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:46:44Z",
+      "metric": "auth.request_rate",
+      "value": 40.18,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:46:44Z",
+      "metric": "api.error_rate",
+      "value": 0.43,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:47:44Z",
+      "metric": "payments.latency_ms",
+      "value": 128.08,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:47:44Z",
+      "metric": "api.cpu_percent",
+      "value": 39.51,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:47:44Z",
+      "metric": "auth.request_rate",
+      "value": 52.38,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:47:44Z",
+      "metric": "api.error_rate",
+      "value": 0.66,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:48:44Z",
+      "metric": "payments.latency_ms",
+      "value": 135.16,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:48:44Z",
+      "metric": "api.cpu_percent",
+      "value": 43.53,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:48:44Z",
+      "metric": "auth.request_rate",
+      "value": 45.64,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:48:44Z",
+      "metric": "api.error_rate",
+      "value": 0.3,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:49:44Z",
+      "metric": "payments.latency_ms",
+      "value": 126.09,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:49:44Z",
+      "metric": "api.cpu_percent",
+      "value": 35.5,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:49:44Z",
+      "metric": "auth.request_rate",
+      "value": 51.03,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:49:44Z",
+      "metric": "api.error_rate",
+      "value": 0.72,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:50:44Z",
+      "metric": "payments.latency_ms",
+      "value": 148.21,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:50:44Z",
+      "metric": "api.cpu_percent",
+      "value": 42.87,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:50:44Z",
+      "metric": "auth.request_rate",
+      "value": 38.92,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:50:44Z",
+      "metric": "api.error_rate",
+      "value": 0.23,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:51:44Z",
+      "metric": "payments.latency_ms",
+      "value": 116.85,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:51:44Z",
+      "metric": "api.cpu_percent",
+      "value": 33.22,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:51:44Z",
+      "metric": "auth.request_rate",
+      "value": 56.15,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:51:44Z",
+      "metric": "api.error_rate",
+      "value": 0.25,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:52:44Z",
+      "metric": "payments.latency_ms",
+      "value": 104.47,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:52:44Z",
+      "metric": "api.cpu_percent",
+      "value": 45.34,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:52:44Z",
+      "metric": "auth.request_rate",
+      "value": 51.49,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:52:44Z",
+      "metric": "api.error_rate",
+      "value": 0.16,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:53:44Z",
+      "metric": "payments.latency_ms",
+      "value": 136.98,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:53:44Z",
+      "metric": "api.cpu_percent",
+      "value": 40.88,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:53:44Z",
+      "metric": "auth.request_rate",
+      "value": 55.3,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:53:44Z",
+      "metric": "api.error_rate",
+      "value": 0.18,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:54:44Z",
+      "metric": "payments.latency_ms",
+      "value": 143.73,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:54:44Z",
+      "metric": "api.cpu_percent",
+      "value": 36.78,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:54:44Z",
+      "metric": "auth.request_rate",
+      "value": 42.46,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:54:44Z",
+      "metric": "api.error_rate",
+      "value": 0.48,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:55:44Z",
+      "metric": "payments.latency_ms",
+      "value": 129.56,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:55:44Z",
+      "metric": "api.cpu_percent",
+      "value": 41.35,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:55:44Z",
+      "metric": "auth.request_rate",
+      "value": 58.16,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:55:44Z",
+      "metric": "api.error_rate",
+      "value": 0.22,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:56:44Z",
+      "metric": "payments.latency_ms",
+      "value": 119.91,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:56:44Z",
+      "metric": "api.cpu_percent",
+      "value": 38.04,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:56:44Z",
+      "metric": "auth.request_rate",
+      "value": 25.45,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:56:44Z",
+      "metric": "api.error_rate",
+      "value": 0.39,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:57:44Z",
+      "metric": "payments.latency_ms",
+      "value": 105.24,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:57:44Z",
+      "metric": "api.cpu_percent",
+      "value": 36.77,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:57:44Z",
+      "metric": "auth.request_rate",
+      "value": 48.83,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:57:44Z",
+      "metric": "api.error_rate",
+      "value": 0.77,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:58:44Z",
+      "metric": "payments.latency_ms",
+      "value": 127.81,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:58:44Z",
+      "metric": "api.cpu_percent",
+      "value": 39.05,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:58:44Z",
+      "metric": "auth.request_rate",
+      "value": 59.08,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:58:44Z",
+      "metric": "api.error_rate",
+      "value": 0.57,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:59:44Z",
+      "metric": "payments.latency_ms",
+      "value": 108.1,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:59:44Z",
+      "metric": "api.cpu_percent",
+      "value": 39.11,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:59:44Z",
+      "metric": "auth.request_rate",
+      "value": 41.96,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T01:59:44Z",
+      "metric": "api.error_rate",
+      "value": 0.33,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:00:44Z",
+      "metric": "payments.latency_ms",
+      "value": 118.71,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:00:44Z",
+      "metric": "api.cpu_percent",
+      "value": 38.16,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:00:44Z",
+      "metric": "auth.request_rate",
+      "value": 54.6,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:00:44Z",
+      "metric": "api.error_rate",
+      "value": 0.77,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:01:44Z",
+      "metric": "payments.latency_ms",
+      "value": 115.94,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:01:44Z",
+      "metric": "api.cpu_percent",
+      "value": 33.13,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:01:44Z",
+      "metric": "auth.request_rate",
+      "value": 41.92,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:01:44Z",
+      "metric": "api.error_rate",
+      "value": 0.18,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:02:44Z",
+      "metric": "payments.latency_ms",
+      "value": 122.99,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:02:44Z",
+      "metric": "api.cpu_percent",
+      "value": 37.41,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:02:44Z",
+      "metric": "auth.request_rate",
+      "value": 55.15,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:02:44Z",
+      "metric": "api.error_rate",
+      "value": 0.36,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:03:44Z",
+      "metric": "payments.latency_ms",
+      "value": 112.23,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:03:44Z",
+      "metric": "api.cpu_percent",
+      "value": 34.17,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:03:44Z",
+      "metric": "auth.request_rate",
+      "value": 56.14,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:03:44Z",
+      "metric": "api.error_rate",
+      "value": 0.58,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:04:44Z",
+      "metric": "payments.latency_ms",
+      "value": 122.87,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:04:44Z",
+      "metric": "api.cpu_percent",
+      "value": 35.12,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:04:44Z",
+      "metric": "auth.request_rate",
+      "value": 53.81,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:04:44Z",
+      "metric": "api.error_rate",
+      "value": 0.38,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:05:44Z",
+      "metric": "payments.latency_ms",
+      "value": 112.77,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:05:44Z",
+      "metric": "api.cpu_percent",
+      "value": 38.84,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:05:44Z",
+      "metric": "auth.request_rate",
+      "value": 49.18,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:05:44Z",
+      "metric": "api.error_rate",
+      "value": 0.46,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:06:44Z",
+      "metric": "payments.latency_ms",
+      "value": 104.39,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:06:44Z",
+      "metric": "api.cpu_percent",
+      "value": 31.7,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:06:44Z",
+      "metric": "auth.request_rate",
+      "value": 47.43,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:06:44Z",
+      "metric": "api.error_rate",
+      "value": 0.19,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:07:44Z",
+      "metric": "payments.latency_ms",
+      "value": 129.09,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:07:44Z",
+      "metric": "api.cpu_percent",
+      "value": 31.15,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:07:44Z",
+      "metric": "auth.request_rate",
+      "value": 51.11,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:07:44Z",
+      "metric": "api.error_rate",
+      "value": 0.78,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:08:44Z",
+      "metric": "payments.latency_ms",
+      "value": 137.7,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:08:44Z",
+      "metric": "api.cpu_percent",
+      "value": 34.88,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:08:44Z",
+      "metric": "auth.request_rate",
+      "value": 49.98,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:08:44Z",
+      "metric": "api.error_rate",
+      "value": 0.42,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:09:44Z",
+      "metric": "payments.latency_ms",
+      "value": 98.42,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:09:44Z",
+      "metric": "api.cpu_percent",
+      "value": 35.42,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:09:44Z",
+      "metric": "auth.request_rate",
+      "value": 56.94,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:09:44Z",
+      "metric": "api.error_rate",
+      "value": 0.2,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:10:44Z",
+      "metric": "payments.latency_ms",
+      "value": 127.41,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:10:44Z",
+      "metric": "api.cpu_percent",
+      "value": 32.95,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:10:44Z",
+      "metric": "auth.request_rate",
+      "value": 62.38,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:10:44Z",
+      "metric": "api.error_rate",
+      "value": 0.16,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:12:44Z",
+      "metric": "payments.latency_ms",
+      "value": 109.73,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:12:44Z",
+      "metric": "api.cpu_percent",
+      "value": 36.66,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:12:44Z",
+      "metric": "auth.request_rate",
+      "value": 66.28,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:12:44Z",
+      "metric": "api.error_rate",
+      "value": 0.65,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:13:44Z",
+      "metric": "payments.latency_ms",
+      "value": 124.52,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:13:44Z",
+      "metric": "api.cpu_percent",
+      "value": 41.06,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:13:44Z",
+      "metric": "auth.request_rate",
+      "value": 156.19,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:13:44Z",
+      "metric": "api.error_rate",
+      "value": 0.65,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:14:44Z",
+      "metric": "payments.latency_ms",
+      "value": 135.83,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:14:44Z",
+      "metric": "api.cpu_percent",
+      "value": 42.81,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:14:44Z",
+      "metric": "auth.request_rate",
+      "value": 352.94,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:14:44Z",
+      "metric": "api.error_rate",
+      "value": 2.4,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:15:44Z",
+      "metric": "payments.latency_ms",
+      "value": 135.02,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:15:44Z",
+      "metric": "api.cpu_percent",
+      "value": 48.14,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:15:44Z",
+      "metric": "auth.request_rate",
+      "value": 436.48,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:15:44Z",
+      "metric": "api.error_rate",
+      "value": 2.54,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:16:44Z",
+      "metric": "payments.latency_ms",
+      "value": 143.53,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:16:44Z",
+      "metric": "api.cpu_percent",
+      "value": 51.59,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:16:44Z",
+      "metric": "auth.request_rate",
+      "value": 597.99,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:16:44Z",
+      "metric": "api.error_rate",
+      "value": 3.22,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:17:44Z",
+      "metric": "payments.latency_ms",
+      "value": 157.34,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:17:44Z",
+      "metric": "api.cpu_percent",
+      "value": 56.42,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:17:44Z",
+      "metric": "auth.request_rate",
+      "value": 720.5,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:17:44Z",
+      "metric": "api.error_rate",
+      "value": 3.86,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:18:44Z",
+      "metric": "payments.latency_ms",
+      "value": 182.48,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:18:44Z",
+      "metric": "api.cpu_percent",
+      "value": 59.59,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:18:44Z",
+      "metric": "auth.request_rate",
+      "value": 810.03,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:18:44Z",
+      "metric": "api.error_rate",
+      "value": 4.59,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:19:44Z",
+      "metric": "payments.latency_ms",
+      "value": 201.51,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:19:44Z",
+      "metric": "api.cpu_percent",
+      "value": 61.55,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:19:44Z",
+      "metric": "auth.request_rate",
+      "value": 1002.51,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:19:44Z",
+      "metric": "api.error_rate",
+      "value": 5.69,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:20:44Z",
+      "metric": "payments.latency_ms",
+      "value": 204.26,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:20:44Z",
+      "metric": "api.cpu_percent",
+      "value": 65.36,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:20:44Z",
+      "metric": "auth.request_rate",
+      "value": 1131.8,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:20:44Z",
+      "metric": "api.error_rate",
+      "value": 6.59,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:21:44Z",
+      "metric": "payments.latency_ms",
+      "value": 222.99,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:21:44Z",
+      "metric": "api.cpu_percent",
+      "value": 71.14,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:21:44Z",
+      "metric": "auth.request_rate",
+      "value": 1266.33,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:21:44Z",
+      "metric": "api.error_rate",
+      "value": 6.8,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:22:44Z",
+      "metric": "payments.latency_ms",
+      "value": 235.61,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:22:44Z",
+      "metric": "api.cpu_percent",
+      "value": 69.84,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:22:44Z",
+      "metric": "auth.request_rate",
+      "value": 1366.16,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:22:44Z",
+      "metric": "api.error_rate",
+      "value": 8.58,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:23:44Z",
+      "metric": "payments.latency_ms",
+      "value": 262.89,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:23:44Z",
+      "metric": "api.cpu_percent",
+      "value": 81.82,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:23:44Z",
+      "metric": "auth.request_rate",
+      "value": 1491.27,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:23:44Z",
+      "metric": "api.error_rate",
+      "value": 8.81,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:24:44Z",
+      "metric": "payments.latency_ms",
+      "value": 274.05,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:24:44Z",
+      "metric": "api.cpu_percent",
+      "value": 81.17,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:24:44Z",
+      "metric": "auth.request_rate",
+      "value": 1658.19,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:24:44Z",
+      "metric": "api.error_rate",
+      "value": 9.92,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:25:44Z",
+      "metric": "payments.latency_ms",
+      "value": 308.72,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:25:44Z",
+      "metric": "api.cpu_percent",
+      "value": 85.88,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:25:44Z",
+      "metric": "auth.request_rate",
+      "value": 1776.44,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:25:44Z",
+      "metric": "api.error_rate",
+      "value": 11.3,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:26:44Z",
+      "metric": "payments.latency_ms",
+      "value": 292.62,
+      "host": "payments-api-02",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:26:44Z",
+      "metric": "api.cpu_percent",
+      "value": 81.56,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:26:44Z",
+      "metric": "auth.request_rate",
+      "value": 1902.95,
+      "host": "auth-service-01",
+      "region": "us-east-1"
+    },
+    {
+      "time": "2026-06-08T02:26:44Z",
+      "metric": "api.error_rate",
+      "value": 10.97,
+      "host": "api-gateway-01",
+      "region": "us-east-1"
+    }
+  ]
+}

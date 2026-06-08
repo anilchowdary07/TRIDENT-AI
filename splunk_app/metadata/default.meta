@@ -1,0 +1,20 @@
+[]
+
+[source::(trident_ai)]
+export = system
+
+[views]
+export = system
+owner = admin
+access = read : [ * ], write : [ admin, power ]
+
+[savedsearches]
+export = system
+owner = admin
+access = read : [ * ], write : [ admin, power ]
+
+[indexes]
+export = system
+
+[nav]
+export = system

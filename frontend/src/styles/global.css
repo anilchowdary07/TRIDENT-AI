@@ -1,0 +1,464 @@
+/* ═══════════════════════════════════════════════════════════════════
+   TRIDENT-AI — Dark Ops Command Centre Design System
+   "Precision tooling, not a consumer app"
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─── CSS Reset ──────────────────────────────────────────────────── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ─── Design Tokens ──────────────────────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --bg-deep: #080B0F;
+  --bg-panel: #0E1318;
+  --bg-surface: #141A21;
+  --bg-elevated: #1A222B;
+  --bg-hover: #1F2A35;
+
+  /* Accents */
+  --accent-teal: #00E5CC;
+  --accent-teal-dim: rgba(0, 229, 204, 0.15);
+  --accent-teal-glow: rgba(0, 229, 204, 0.4);
+  --accent-amber: #FF8C00;
+  --accent-amber-dim: rgba(255, 140, 0, 0.15);
+  --accent-red: #FF2D55;
+  --accent-red-dim: rgba(255, 45, 85, 0.15);
+  --accent-red-glow: rgba(255, 45, 85, 0.4);
+  --accent-blue: #4A9DFF;
+
+  /* Text */
+  --text-primary: #E8ECF1;
+  --text-secondary: #8B95A5;
+  --text-muted: #505A68;
+  --text-inverse: #080B0F;
+
+  /* Borders */
+  --border-subtle: rgba(255, 255, 255, 0.03);
+  --border-light: rgba(255, 255, 255, 0.06);
+  --border-medium: rgba(255, 255, 255, 0.10);
+  --border-accent: rgba(0, 229, 204, 0.3);
+
+  /* Typography */
+  --font-mono: 'IBM Plex Mono', 'Fira Code', 'Consolas', monospace;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Sizing */
+  --sidebar-width: 240px;
+  --panel-right-width: 320px;
+  --header-height: 56px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+
+  /* Glassmorphism */
+  --glass-bg: rgba(14, 19, 24, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.03);
+  --glass-blur: blur(8px);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 400ms ease;
+}
+
+/* ─── Base ────────────────────────────────────────────────────────── */
+html {
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  line-height: 1.5;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Typography ─────────────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+h1 { font-size: 1.75rem; }
+h2 { font-size: 1.35rem; }
+h3 { font-size: 1.1rem; }
+h4 { font-size: 0.95rem; }
+
+code, .mono {
+  font-family: var(--font-mono);
+}
+
+/* ─── Glass Panel ────────────────────────────────────────────────── */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+}
+
+/* ─── Layout ─────────────────────────────────────────────────────── */
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-header {
+  height: var(--header-height);
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.app-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.sidebar-left {
+  width: var(--sidebar-width);
+  background: var(--bg-panel);
+  border-right: 1px solid var(--border-light);
+  overflow-y: auto;
+  padding: 16px;
+  flex-shrink: 0;
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  min-width: 0;
+}
+
+.sidebar-right {
+  width: var(--panel-right-width);
+  background: var(--bg-panel);
+  border-left: 1px solid var(--border-light);
+  overflow-y: auto;
+  padding: 16px;
+  flex-shrink: 0;
+}
+
+/* ─── Header Components ──────────────────────────────────────────── */
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-logo svg {
+  width: 28px;
+  height: 28px;
+  color: var(--accent-teal);
+}
+
+.header-logo h1 {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.05em;
+}
+
+.header-status {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.status-badge--active {
+  background: var(--accent-teal-dim);
+  color: var(--accent-teal);
+  border: 1px solid rgba(0, 229, 204, 0.2);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-teal);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.header-time {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.alert-count {
+  background: var(--accent-red);
+  color: white;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  min-width: 24px;
+  text-align: center;
+}
+
+/* ─── Severity Badges ────────────────────────────────────────────── */
+.severity-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.severity-badge--critical {
+  background: var(--accent-red-dim);
+  color: var(--accent-red);
+  border: 1px solid rgba(255, 45, 85, 0.3);
+  box-shadow: 0 0 12px var(--accent-red-glow);
+}
+
+.severity-badge--high {
+  background: var(--accent-amber-dim);
+  color: var(--accent-amber);
+  border: 1px solid rgba(255, 140, 0, 0.3);
+}
+
+.severity-badge--medium {
+  background: var(--accent-teal-dim);
+  color: var(--accent-teal);
+  border: 1px solid rgba(0, 229, 204, 0.2);
+}
+
+.severity-badge--low {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-light);
+}
+
+/* ─── Risk Level Badges ──────────────────────────────────────────── */
+.risk-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+}
+
+.risk-badge--low {
+  background: var(--accent-teal-dim);
+  color: var(--accent-teal);
+}
+
+.risk-badge--medium {
+  background: var(--accent-amber-dim);
+  color: var(--accent-amber);
+}
+
+.risk-badge--high {
+  background: var(--accent-red-dim);
+  color: var(--accent-red);
+}
+
+/* ─── Buttons ────────────────────────────────────────────────────── */
+.btn {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: none;
+  outline: none;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn--primary {
+  background: var(--accent-teal);
+  color: var(--text-inverse);
+  width: 100%;
+}
+
+.btn--primary:hover {
+  background: #00ccb5;
+  box-shadow: 0 0 20px var(--accent-teal-glow);
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-medium);
+}
+
+.btn--outline:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.btn--danger {
+  background: var(--accent-red-dim);
+  color: var(--accent-red);
+  border: 1px solid rgba(255, 45, 85, 0.2);
+}
+
+.btn--danger:hover {
+  background: rgba(255, 45, 85, 0.25);
+}
+
+/* ─── Section Headers ────────────────────────────────────────────── */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.section-header__label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ─── Confidence Gauge ───────────────────────────────────────────── */
+.confidence-gauge {
+  width: 64px;
+  height: 64px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confidence-gauge__value {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* ─── Empty State ────────────────────────────────────────────────── */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.empty-state__icon {
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  opacity: 0.3;
+  animation: float 3s ease-in-out infinite;
+}
+
+.empty-state__text {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ─── Collapsible ────────────────────────────────────────────────── */
+.collapsible {
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.collapsible__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  cursor: pointer;
+  background: var(--bg-surface);
+  transition: background var(--transition-fast);
+}
+
+.collapsible__header:hover {
+  background: var(--bg-hover);
+}
+
+.collapsible__body {
+  padding: 14px;
+  background: var(--bg-panel);
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-medium);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 1400px) {
+  .sidebar-right {
+    width: 280px;
+  }
+}
+
+@media (max-width: 1280px) {
+  .sidebar-left {
+    width: 200px;
+  }
+  .sidebar-right {
+    width: 260px;
+  }
+}

@@ -1,0 +1,51 @@
+<dashboard version="1.1" theme="dark">
+  <label>MCP Security Audit Trail</label>
+  <description>Complete JSON-RPC audit log with security violation detection</description>
+
+  <row>
+    <panel>
+      <title>🔐 Security Violations</title>
+      <table>
+        <search>
+          <query>index=trident_audit sourcetype=trident:audit security_violation=true | sort -_time | table _time, rpc_id, method, violation_type, pattern, blocked</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <refresh>30s</refresh>
+        </search>
+        <option name="count">50</option>
+      </table>
+    </panel>
+  </row>
+
+  <row>
+    <panel>
+      <title>📋 All MCP Calls (Last Hour)</title>
+      <table>
+        <search>
+          <query>index=trident_audit sourcetype=trident:audit | sort -_time | head 100 | table _time, rpc_id, method, params, status_code, duration_ms, security_violation</query>
+          <earliest>-1h@h</earliest>
+          <latest>now</latest>
+          <refresh>15s</refresh>
+        </search>
+        <option name="count">25</option>
+        <option name="drilldown">row</option>
+      </table>
+    </panel>
+  </row>
+
+  <row>
+    <panel>
+      <title>📊 MCP Call Volume (Last 4 Hours)</title>
+      <chart>
+        <search>
+          <query>index=trident_audit sourcetype=trident:audit | timechart span=5m count by method</query>
+          <earliest>-4h@h</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="charting.chart">area</option>
+        <option name="charting.chart.stackMode">stacked</option>
+        <option name="charting.legend.placement">bottom</option>
+      </chart>
+    </panel>
+  </row>
+</dashboard>

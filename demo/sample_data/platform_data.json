@@ -1,0 +1,35 @@
+{
+  "data": [
+    {
+      "type": "heavy_search",
+      "title": "Flash Sale - Realtime Revenue Dashboard",
+      "owner": "jr-admin",
+      "runDuration": 482,
+      "scanCount": 45000000,
+      "cpu_estimate": 103.5,
+      "dispatchState": "RUNNING",
+      "time": "2026-06-08T02:17:44Z"
+    },
+    {
+      "type": "config_change",
+      "host": "idx-cluster-01",
+      "file": "inputs.conf",
+      "action": "modified",
+      "user": "jr-admin",
+      "count": 3,
+      "time": "2026-06-08T02:02:44Z"
+    },
+    {
+      "type": "queue_warning",
+      "name": "parsingQueue",
+      "avg_fill_kb": 7840.5,
+      "time": "2026-06-08T02:17:44Z"
+    },
+    {
+      "type": "queue_warning",
+      "name": "indexQueue",
+      "avg_fill_kb": 6120.3,
+      "time": "2026-06-08T02:17:44Z"
+    }
+  ]
+}

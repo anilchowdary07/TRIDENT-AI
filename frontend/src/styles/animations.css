@@ -1,0 +1,206 @@
+/* ═══════════════════════════════════════════════════════════════════
+   TRIDENT-AI Animations — Functional micro-animations
+   "They signal that data just updated"
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ─── Pulse Glow (Agent status dot) ──────────────────────────────── */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 4px currentColor;
+  }
+  50% {
+    opacity: 0.5;
+    box-shadow: 0 0 12px currentColor, 0 0 24px currentColor;
+  }
+}
+
+/* ─── Pulse Ring (Investigating state) ───────────────────────────── */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.pulse-ring {
+  position: relative;
+}
+
+.pulse-ring::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-teal);
+  transform: translate(-50%, -50%);
+  animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+/* ─── Slide In (New incident entering queue) ─────────────────────── */
+@keyframes slide-in-top {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-in {
+  animation: slide-in-top 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* ─── Fade In ────────────────────────────────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fade-in 0.3s ease;
+}
+
+/* ─── Float (Empty state trident) ────────────────────────────────── */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* ─── Shimmer (Loading skeleton) ─────────────────────────────────── */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-surface) 25%,
+    var(--bg-elevated) 37%,
+    var(--bg-surface) 63%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+}
+
+.skeleton-text {
+  height: 14px;
+  margin-bottom: 8px;
+}
+
+.skeleton-text--short {
+  width: 40%;
+}
+
+.skeleton-text--medium {
+  width: 70%;
+}
+
+.skeleton-text--long {
+  width: 90%;
+}
+
+.skeleton-card {
+  height: 80px;
+  margin-bottom: 8px;
+}
+
+/* ─── Pulsing Border (Unacknowledged incident) ───────────────────── */
+@keyframes border-pulse {
+  0%, 100% {
+    border-left-color: var(--accent-red);
+  }
+  50% {
+    border-left-color: transparent;
+  }
+}
+
+.border-pulse {
+  border-left: 3px solid var(--accent-red);
+  animation: border-pulse 2s ease-in-out infinite;
+}
+
+/* ─── Glow Effect (Severity badge) ───────────────────────────────── */
+@keyframes glow-critical {
+  0%, 100% {
+    box-shadow: 0 0 8px var(--accent-red-glow);
+  }
+  50% {
+    box-shadow: 0 0 20px var(--accent-red-glow), 0 0 40px rgba(255, 45, 85, 0.2);
+  }
+}
+
+.glow-critical {
+  animation: glow-critical 2s ease-in-out infinite;
+}
+
+/* ─── Spin (Loading indicator) ───────────────────────────────────── */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+/* ─── Scale Pop (Button confirmation) ────────────────────────────── */
+@keyframes scale-pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.scale-pop {
+  animation: scale-pop 0.3s ease;
+}
+
+/* ─── Data Update Flash ──────────────────────────────────────────── */
+@keyframes data-flash {
+  0% {
+    background-color: var(--accent-teal-dim);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.data-updated {
+  animation: data-flash 1s ease;
+}
+
+/* ─── Stagger Children (List items) ──────────────────────────────── */
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 50ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 100ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 150ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 200ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 250ms; }
+.stagger-children > *:nth-child(7) { animation-delay: 300ms; }
+.stagger-children > *:nth-child(8) { animation-delay: 350ms; }

@@ -1,0 +1,4 @@
+<nav color="dark">
+  <view name="trident_dashboard" default="true" />
+  <view name="audit_trail" />
+</nav>

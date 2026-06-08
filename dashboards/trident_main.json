@@ -1,0 +1,211 @@
+{
+  "visualizations": {
+    "viz_cdtsm_forecast": {
+      "type": "splunk.line",
+      "title": "CDTSM Metric Forecast — Quantile Bands",
+      "options": {
+        "backgroundColor": "transparent",
+        "seriesColors": ["#00E5CC", "#FF2D55", "#1a3a4a", "#1a3a4a"],
+        "chart.showDataLabels": "none",
+        "xAxisTitleText": "Time",
+        "yAxisTitleText": "Value",
+        "chart.nullValueMode": "connect",
+        "legendDisplay": "bottom",
+        "areaFillOpacity": 0.15
+      },
+      "dataSources": {
+        "primary": "ds_cdtsm_forecast"
+      }
+    },
+    "viz_incident_queue": {
+      "type": "splunk.table",
+      "title": "Active Incident Queue",
+      "options": {
+        "backgroundColor": "transparent",
+        "tableFormat": {
+          "rowBackgroundColors": "> table | seriesByIndex(0) | pick(rgba(255,45,85,0.15), rgba(255,140,0,0.15), rgba(0,229,204,0.1), rgba(255,255,255,0.03))",
+          "data": "> table | seriesByIndex(0)"
+        },
+        "count": 20
+      },
+      "dataSources": {
+        "primary": "ds_incident_queue"
+      }
+    },
+    "viz_incident_detail": {
+      "type": "splunk.markdown",
+      "title": "Incident Detail",
+      "options": {
+        "markdown": "> **$selected_incident_title$**\n> \n> $selected_incident_summary$",
+        "backgroundColor": "transparent"
+      },
+      "dataSources": {}
+    },
+    "viz_network_topology": {
+      "type": "splunk.choropleth.svg",
+      "title": "Service Topology & Impact",
+      "options": {
+        "backgroundColor": "transparent"
+      },
+      "dataSources": {
+        "primary": "ds_network"
+      }
+    },
+    "viz_remediation": {
+      "type": "splunk.table",
+      "title": "Remediation Options",
+      "options": {
+        "backgroundColor": "transparent",
+        "count": 3
+      },
+      "dataSources": {
+        "primary": "ds_remediation"
+      }
+    },
+    "viz_audit_trail": {
+      "type": "splunk.table",
+      "title": "MCP JSON-RPC Audit Trail",
+      "options": {
+        "backgroundColor": "transparent",
+        "count": 50,
+        "tableFormat": {
+          "rowBackgroundColors": "> table | seriesByName('security_violation') | matchValue(true) | pick(rgba(255,45,85,0.2), transparent)"
+        }
+      },
+      "dataSources": {
+        "primary": "ds_audit"
+      }
+    }
+  },
+  "dataSources": {
+    "ds_cdtsm_forecast": {
+      "type": "ds.search",
+      "options": {
+        "query": "index=trident_incidents sourcetype=trident:incident | head 1 | spath output=telemetry path=agent_trace.telemetry_sentinel | table telemetry",
+        "queryParameters": {
+          "earliest": "-4h@h",
+          "latest": "now"
+        },
+        "refresh": "30s"
+      }
+    },
+    "ds_incident_queue": {
+      "type": "ds.search",
+      "options": {
+        "query": "index=trident_incidents sourcetype=trident:incident | dedup incident_id | sort -severity_score | head 20 | table incident_id, timestamp, severity, severity_score, title, confidence, status",
+        "queryParameters": {
+          "earliest": "-24h@h",
+          "latest": "now"
+        },
+        "refresh": "30s"
+      }
+    },
+    "ds_network": {
+      "type": "ds.search",
+      "options": {
+        "query": "index=trident_incidents sourcetype=trident:incident | head 1 | spath output=services path=affected_services | mvexpand services | table services",
+        "queryParameters": {
+          "earliest": "-24h@h",
+          "latest": "now"
+        }
+      }
+    },
+    "ds_remediation": {
+      "type": "ds.search",
+      "options": {
+        "query": "index=trident_incidents sourcetype=trident:incident incident_id=\"$selected_incident_id$\" | spath output=options path=remediation_options{} | mvexpand options | spath input=options | table priority, action, risk_level, estimated_recovery_minutes, requires_approval",
+        "queryParameters": {
+          "earliest": "-24h@h",
+          "latest": "now"
+        }
+      }
+    },
+    "ds_audit": {
+      "type": "ds.search",
+      "options": {
+        "query": "index=trident_audit sourcetype=trident:audit | sort -_time | head 50 | table _time, rpc_id, method, status_code, duration_ms, security_violation",
+        "queryParameters": {
+          "earliest": "-1h@h",
+          "latest": "now"
+        },
+        "refresh": "15s"
+      }
+    }
+  },
+  "inputs": {
+    "input_selected_metric": {
+      "type": "input.dropdown",
+      "options": {
+        "items": [
+          {"label": "Payments Latency", "value": "payments.latency_ms"},
+          {"label": "API CPU %", "value": "api.cpu_percent"},
+          {"label": "Auth Request Rate", "value": "auth.request_rate"},
+          {"label": "API Error Rate", "value": "api.error_rate"}
+        ],
+        "defaultValue": "payments.latency_ms",
+        "token": "selected_metric"
+      }
+    },
+    "input_time_range": {
+      "type": "input.timerange",
+      "options": {
+        "defaultValue": "-4h@h,now",
+        "token": "global_time"
+      }
+    }
+  },
+  "tokens": {
+    "defaultTokenNamespace": {
+      "selected_metric": {
+        "defaultValue": "payments.latency_ms"
+      },
+      "selected_incident_id": {
+        "defaultValue": ""
+      },
+      "selected_incident_title": {
+        "defaultValue": "Select an incident from the queue"
+      },
+      "selected_incident_summary": {
+        "defaultValue": "Click a row in the incident queue table to view details."
+      }
+    }
+  },
+  "layout": {
+    "type": "grid",
+    "options": {
+      "backgroundColor": "#080B0F"
+    },
+    "structure": [
+      {
+        "item": "viz_cdtsm_forecast",
+        "position": {"x": 0, "y": 0, "w": 640, "h": 300}
+      },
+      {
+        "item": "viz_incident_queue",
+        "position": {"x": 0, "y": 300, "w": 640, "h": 350}
+      },
+      {
+        "item": "viz_incident_detail",
+        "position": {"x": 640, "y": 0, "w": 560, "h": 300}
+      },
+      {
+        "item": "viz_remediation",
+        "position": {"x": 640, "y": 300, "w": 560, "h": 200}
+      },
+      {
+        "item": "viz_audit_trail",
+        "position": {"x": 0, "y": 650, "w": 1200, "h": 300}
+      }
+    ]
+  },
+  "title": "TRIDENT-AI Command Centre",
+  "description": "Autonomous Incident Intelligence — Zero-Touch Detection & Response",
+  "defaults": {
+    "visualizations": {
+      "global": {
+        "showProgressBar": false,
+        "showLastUpdated": true
+      }
+    }
+  }
+}

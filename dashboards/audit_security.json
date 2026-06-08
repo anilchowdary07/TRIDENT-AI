@@ -1,0 +1,125 @@
+{
+  "visualizations": {
+    "viz_violations_table": {
+      "type": "splunk.table",
+      "title": "Security Violations",
+      "options": {
+        "backgroundColor": "transparent",
+        "count": 50,
+        "tableFormat": {
+          "rowBackgroundColors": "rgba(255,45,85,0.15)"
+        }
+      },
+      "dataSources": {
+        "primary": "ds_violations"
+      }
+    },
+    "viz_all_calls": {
+      "type": "splunk.table",
+      "title": "All MCP JSON-RPC Calls",
+      "options": {
+        "backgroundColor": "transparent",
+        "count": 100
+      },
+      "dataSources": {
+        "primary": "ds_all_calls"
+      }
+    },
+    "viz_call_volume": {
+      "type": "splunk.area",
+      "title": "MCP Call Volume by Method",
+      "options": {
+        "backgroundColor": "transparent",
+        "seriesColors": ["#00E5CC", "#FF8C00", "#FF2D55", "#4A9DFF"],
+        "stackMode": "stacked",
+        "legendDisplay": "bottom"
+      },
+      "dataSources": {
+        "primary": "ds_volume"
+      }
+    },
+    "viz_violation_count": {
+      "type": "splunk.singlevalue",
+      "title": "Total Violations (24h)",
+      "options": {
+        "backgroundColor": "transparent",
+        "majorColor": "#FF2D55",
+        "trendDisplay": "percent"
+      },
+      "dataSources": {
+        "primary": "ds_violation_count"
+      }
+    }
+  },
+  "dataSources": {
+    "ds_violations": {
+      "type": "ds.search",
+      "options": {
+        "query": "index=trident_audit sourcetype=trident:audit security_violation=true | sort -_time | table _time, rpc_id, method, violation_type, pattern, blocked",
+        "queryParameters": {
+          "earliest": "-24h@h",
+          "latest": "now"
+        },
+        "refresh": "30s"
+      }
+    },
+    "ds_all_calls": {
+      "type": "ds.search",
+      "options": {
+        "query": "index=trident_audit sourcetype=trident:audit | sort -_time | head 100 | table _time, rpc_id, method, params, status_code, duration_ms, security_violation",
+        "queryParameters": {
+          "earliest": "-1h@h",
+          "latest": "now"
+        },
+        "refresh": "15s"
+      }
+    },
+    "ds_volume": {
+      "type": "ds.search",
+      "options": {
+        "query": "index=trident_audit sourcetype=trident:audit | timechart span=5m count by method",
+        "queryParameters": {
+          "earliest": "-4h@h",
+          "latest": "now"
+        }
+      }
+    },
+    "ds_violation_count": {
+      "type": "ds.search",
+      "options": {
+        "query": "index=trident_audit sourcetype=trident:audit security_violation=true | stats count",
+        "queryParameters": {
+          "earliest": "-24h@h",
+          "latest": "now"
+        },
+        "refresh": "60s"
+      }
+    }
+  },
+  "layout": {
+    "type": "grid",
+    "options": {
+      "backgroundColor": "#080B0F"
+    },
+    "structure": [
+      {
+        "item": "viz_violation_count",
+        "position": {"x": 0, "y": 0, "w": 300, "h": 150}
+      },
+      {
+        "item": "viz_violations_table",
+        "position": {"x": 300, "y": 0, "w": 900, "h": 300}
+      },
+      {
+        "item": "viz_call_volume",
+        "position": {"x": 0, "y": 300, "w": 600, "h": 300}
+      },
+      {
+        "item": "viz_all_calls",
+        "position": {"x": 0, "y": 600, "w": 1200, "h": 350}
+      }
+    ]
+  },
+  "title": "TRIDENT-AI Security Audit",
+  "description": "MCP JSON-RPC Security Validation and Audit Trail"
+}
