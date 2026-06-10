@@ -98,3 +98,4 @@ Visit `http://localhost:3000`. Click **"Run Demo Scenario"** to inject a simulat
 
 ## 📜 License
 This project is open-source and available under the [MIT License](LICENSE).
+# TRIDENT-AI
