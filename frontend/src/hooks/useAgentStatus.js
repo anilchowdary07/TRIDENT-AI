@@ -1,10 +1,6 @@
 import { useState, useEffect } from 'react';
 
-/**
- * Hook: monitors agent heartbeats.
- * In demo mode, simulates live agent status cycling.
- */
-const INITIAL_AGENTS = [
+const DEMO_AGENTS = [
   {
     agent_name: 'TelemetrySentinel',
     status: 'COMPLETE',
@@ -28,19 +24,25 @@ const INITIAL_AGENTS = [
   },
 ];
 
-export function useAgentStatus(pollInterval = 15000) {
-  const [agents, setAgents] = useState(INITIAL_AGENTS);
+export function useAgentStatus(pollInterval = 5000) {
+  const [agents, setAgents] = useState(DEMO_AGENTS);
 
   useEffect(() => {
-    // Simulate agent status cycling for demo purposes
-    const interval = setInterval(() => {
-      setAgents(prev => prev.map(agent => ({
-        ...agent,
-        last_poll: 'just now',
-        status: Math.random() > 0.8 ? 'INVESTIGATING' : 'COMPLETE',
-      })));
-    }, pollInterval);
-
+    const fetchStatus = async () => {
+      try {
+        const res = await fetch('http://localhost:8000/api/agent-status');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        if (data && data.length > 0) {
+          setAgents(data);
+        }
+      } catch (err) {
+        // Keep demo data if backend unreachable
+      }
+    };
+    
+    fetchStatus();
+    const interval = setInterval(fetchStatus, pollInterval);
     return () => clearInterval(interval);
   }, [pollInterval]);
 

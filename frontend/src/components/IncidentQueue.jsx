@@ -9,7 +9,7 @@ export default function IncidentQueue({ incidents, loading, selectedId, onSelect
   if (loading) {
     return (
       <div>
-        <div className="section-header">
+        <div className="section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span className="section-header__label">Incident Queue</span>
         </div>
         <div className="stagger-children">
@@ -24,17 +24,11 @@ export default function IncidentQueue({ incidents, loading, selectedId, onSelect
   if (!incidents || incidents.length === 0) {
     return (
       <div>
-        <div className="section-header">
+        <div className="section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span className="section-header__label">Incident Queue</span>
         </div>
         <div className="empty-state">
-          <svg className="empty-state__icon" width="64" height="64" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <line x1="16" y1="4" x2="16" y2="28" />
-            <line x1="16" y1="4" x2="8" y2="12" />
-            <line x1="16" y1="4" x2="24" y2="12" />
-            <line x1="8" y1="12" x2="8" y2="16" />
-            <line x1="24" y1="12" x2="24" y2="16" />
-          </svg>
+          <img src="/trident_logo.png" alt="Trident Logo" className="empty-state__icon" style={{ width: 64, height: 64, opacity: 0.5, objectFit: 'contain' }} />
           <p className="empty-state__text">Agents watching. All systems nominal.</p>
         </div>
       </div>
@@ -47,7 +41,7 @@ export default function IncidentQueue({ incidents, loading, selectedId, onSelect
   return (
     <div>
       <div className="incident-queue__header">
-        <div className="section-header" style={{ marginBottom: 0, paddingBottom: 0, borderBottom: 'none' }}>
+        <div className="section-header" style={{ marginBottom: 0, paddingBottom: 0, borderBottom: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
           <span className="section-header__label">Incident Queue</span>
         </div>
         <span style={{

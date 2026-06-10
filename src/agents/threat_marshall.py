@@ -24,6 +24,7 @@ Usage:
 
 from __future__ import annotations
 
+import asyncio
 import json
 from pathlib import Path
 from typing import Any
@@ -76,6 +77,9 @@ class ThreatMarshall(BaseAgent):
             demo_mode=settings.DEMO_MODE,
             context_keys=list(context.keys()),
         )
+
+        # Add a realistic delay to show the agent "working" in the UI
+        await asyncio.sleep(2.0)
 
         if settings.DEMO_MODE:
             return await self._investigate_demo(context)

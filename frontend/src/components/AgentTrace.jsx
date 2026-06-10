@@ -15,6 +15,59 @@ export default function AgentTrace({ trace }) {
 
   return (
     <div>
+      {/* ─── Trident AI Synthesis Highlight ─── */}
+      <div style={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        gap: '16px', 
+        marginBottom: '24px', 
+        padding: '20px', 
+        background: 'linear-gradient(180deg, var(--bg-elevated) 0%, rgba(0, 229, 204, 0.03) 100%)', 
+        borderRadius: 'var(--radius-md)', 
+        border: '1px solid var(--border-medium)',
+        borderBottom: '2px solid var(--accent-teal)'
+      }}>
+        <div style={{textAlign: 'center', flex: 1}}>
+           <div style={{fontSize: '1.8rem', filter: 'drop-shadow(0 0 8px var(--accent-teal-glow))'}}>📡</div>
+           <div style={{fontSize: '0.65rem', fontFamily: 'var(--font-mono)', color: 'var(--accent-teal)', marginTop: '8px', letterSpacing: '0.1em'}}>TELEMETRY</div>
+        </div>
+        
+        <div style={{color: 'var(--text-muted)', fontSize: '1.2rem'}}>+</div>
+        
+        <div style={{textAlign: 'center', flex: 1}}>
+           <div style={{fontSize: '1.8rem', filter: 'drop-shadow(0 0 8px var(--accent-red-glow))'}}>🛡️</div>
+           <div style={{fontSize: '0.65rem', fontFamily: 'var(--font-mono)', color: 'var(--accent-red)', marginTop: '8px', letterSpacing: '0.1em'}}>SECURITY</div>
+        </div>
+        
+        <div style={{color: 'var(--text-muted)', fontSize: '1.2rem'}}>+</div>
+        
+        <div style={{textAlign: 'center', flex: 1}}>
+           <div style={{fontSize: '1.8rem', filter: 'drop-shadow(0 0 8px rgba(255, 140, 0, 0.4))'}}>🖥️</div>
+           <div style={{fontSize: '0.65rem', fontFamily: 'var(--font-mono)', color: 'var(--accent-amber)', marginTop: '8px', letterSpacing: '0.1em'}}>PLATFORM</div>
+        </div>
+        
+        <div className="pulse-ring" style={{color: 'var(--accent-teal)', margin: '0 16px', fontSize: '1.5rem'}}>→</div>
+        
+        <div style={{
+          textAlign: 'center', 
+          background: 'rgba(0, 229, 204, 0.1)', 
+          padding: '12px 24px', 
+          borderRadius: 'var(--radius-sm)', 
+          border: '1px solid var(--accent-teal)', 
+          boxShadow: '0 0 20px var(--accent-teal-glow)',
+          flex: 1.5
+        }}>
+           <div style={{fontSize: '2rem', color: '#00E5CC', filter: 'drop-shadow(0 0 12px var(--accent-teal-glow))'}}>🔱</div>
+           <div style={{fontSize: '0.75rem', fontWeight: 'bold', fontFamily: 'var(--font-mono)', color: '#00E5CC', letterSpacing: '0.1em', marginTop: '6px'}}>TRIDENT AI SYNTHESIS</div>
+        </div>
+      </div>
+
+      <div style={{ marginBottom: '12px', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+        Raw Reasoning Trace:
+      </div>
+
+      {/* ─── Collapsible Raw Traces ─── */}
       {agents.map(agent => (
         <TraceSection
           key={agent.key}

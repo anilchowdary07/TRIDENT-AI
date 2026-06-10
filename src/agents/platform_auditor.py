@@ -19,6 +19,8 @@ Usage:
 from __future__ import annotations
 
 import asyncio
+import json
+import os
 from typing import Any
 
 from src.agents.base_agent import BaseAgent
@@ -31,6 +33,7 @@ from src.models.agent_finding import (
     QueueWarning,
 )
 from src.splunk.search_client import SearchClient
+from src.utils.config import settings
 from src.utils.logger import get_logger
 
 log = get_logger(__name__)
@@ -88,29 +91,48 @@ class PlatformAuditor(BaseAgent):
         Returns:
             PlatformFinding with heavy searches, config changes, and queue warnings.
         """
-        log.info("platform_auditor_starting")
+        # Add a realistic delay to show the agent "working" in the UI
+        await asyncio.sleep(2.5)
 
-        # Run all 3 queries concurrently
-        results = await asyncio.gather(
-            self._check_heavy_searches(),
-            self._check_config_changes(),
-            self._check_queue_fill(),
-            return_exceptions=True,
-        )
+        log.info("platform_auditor_starting", demo_mode=settings.DEMO_MODE)
+        
+        if settings.DEMO_MODE:
+            log.info("platform_auditor_demo_mode", path="demo/sample_data/platform_data.json")
+            file_path = os.path.join("demo", "sample_data", "platform_data.json")
+            try:
+                with open(file_path, "r") as f:
+                    mock_data = json.load(f)
+                
+                heavy_searches = [HeavySearch(**hs) for hs in mock_data.get("heavy_searches", [])]
+                config_changes = [ConfigChange(**cc) for cc in mock_data.get("config_changes", [])]
+                queue_warnings = [QueueWarning(**qw) for qw in mock_data.get("queue_warnings", [])]
+            except Exception as e:
+                log.error("Failed to load local platform mock data", error=str(e))
+                heavy_searches = []
+                config_changes = []
+                queue_warnings = []
+        else:
+            # Run all 3 queries concurrently
+            results = await asyncio.gather(
+                self._check_heavy_searches(),
+                self._check_config_changes(),
+                self._check_queue_fill(),
+                return_exceptions=True,
+            )
 
-        heavy_searches = results[0] if not isinstance(results[0], Exception) else []
-        config_changes = results[1] if not isinstance(results[1], Exception) else []
-        queue_warnings = results[2] if not isinstance(results[2], Exception) else []
+            heavy_searches = results[0] if not isinstance(results[0], Exception) else []
+            config_changes = results[1] if not isinstance(results[1], Exception) else []
+            queue_warnings = results[2] if not isinstance(results[2], Exception) else []
 
-        # Log any errors from individual queries
-        for i, result in enumerate(results):
-            if isinstance(result, Exception):
-                query_names = ["heavy_searches", "config_changes", "queue_fill"]
-                log.warning(
-                    "platform_query_failed",
-                    query=query_names[i],
-                    error=str(result),
-                )
+            # Log any errors from individual queries
+            for i, result in enumerate(results):
+                if isinstance(result, Exception):
+                    query_names = ["heavy_searches", "config_changes", "queue_fill"]
+                    log.warning(
+                        "platform_query_failed",
+                        query=query_names[i],
+                        error=str(result),
+                    )
 
         # Determine overall platform health
         platform_healthy = (

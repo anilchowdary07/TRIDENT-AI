@@ -50,6 +50,9 @@ class StateManager:
         self._poll_count: int = 0
         self._start_time: float = time.time()
 
+        # Demo Trigger Flag
+        self.demo_scenario_active: bool = False
+
         log.info(
             "state_manager_init",
             cooldown_seconds=settings.ANOMALY_COOLDOWN_SECONDS,
@@ -185,6 +188,11 @@ class StateManager:
         """
         self._poll_count += 1
         return self._poll_count
+
+    def start_demo_scenario(self) -> None:
+        """Manually trigger the demo scenario."""
+        self.demo_scenario_active = True
+        log.info("demo_scenario_triggered_manually")
 
     def get_stats(self) -> dict[str, Any]:
         """

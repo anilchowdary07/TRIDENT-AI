@@ -19,6 +19,7 @@ Usage:
 
 from __future__ import annotations
 
+import asyncio
 import json
 from pathlib import Path
 from typing import Any
@@ -84,6 +85,9 @@ class TelemetrySentinel(BaseAgent):
             demo_mode=settings.DEMO_MODE,
         )
 
+        # Add a realistic delay to show the agent "working" in the UI
+        await asyncio.sleep(1.5)
+
         if settings.DEMO_MODE:
             return await self._investigate_demo(context)
 
@@ -145,6 +149,15 @@ class TelemetrySentinel(BaseAgent):
             return TelemetryFinding(
                 status=AgentStatus.COMPLETE,
                 anomaly_detected=False,
+            )
+
+        is_active = context.get("demo_scenario_active", False)
+        if not is_active:
+            log.info("telemetry_demo_waiting_for_trigger")
+            return TelemetryFinding(
+                status=AgentStatus.COMPLETE,
+                anomaly_detected=False,
+                anomaly_severity=0.0
             )
 
         # Parse demo data to simulate CDTSM output

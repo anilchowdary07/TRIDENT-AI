@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import os
 import time
 from typing import Any, Optional
 
@@ -53,6 +54,7 @@ class SearchClient:
             auth: Optional SplunkAuth instance. Creates one if not provided.
         """
         self._auth = auth or SplunkAuth()
+        self.demo_mode_str = str(os.getenv("DEMO_MODE", "false")).lower()
 
     async def execute_search(
         self,
@@ -261,6 +263,11 @@ class SearchClient:
         Returns:
             True if write succeeded, False otherwise.
         """
+        if settings.DEMO_MODE:
+            log.info("DEMO MODE: Bypassing Splunk Cloud write to prevent timeout freezes.", index=index)
+            return True
+
+        log.info("PRODUCTION MODE: Initializing HEC connection to Splunk Cloud...", index=index)
         log.info("event_writing", index=index, sourcetype=sourcetype)
 
         try:
@@ -290,3 +297,34 @@ class SearchClient:
             json.dumps(event_data),
             sourcetype=sourcetype,
         )
+
+    async def get_events(
+        self,
+        index: str,
+        query: str = "",
+        limit: int = 20
+    ) -> list[dict[str, Any]]:
+        """Run a search for raw events on the given index."""
+        if settings.DEMO_MODE:
+            return []
+        spl = f"search index={index} {query} | sort -_time | head {limit}"
+        results = await self.execute_search(spl, max_results=limit)
+        events = []
+        for r in results:
+            if "_raw" in r:
+                try:
+                    events.append(json.loads(r["_raw"]))
+                except json.JSONDecodeError:
+                    events.append(r)
+            else:
+                events.append(r)
+        return events
+
+    async def post_event(
+        self,
+        index: str,
+        event: dict[str, Any],
+        sourcetype: str = "trident:json"
+    ) -> bool:
+        """Post a JSON event."""
+        return await self.write_event(event, index=index, sourcetype=sourcetype)

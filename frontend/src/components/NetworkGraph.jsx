@@ -78,6 +78,13 @@ export default function NetworkGraph({ services, iocs }) {
       })
       .attr('stroke-width', 1.5);
 
+    // Pulse animation for attack node
+    const attackNode = node.filter(d => d.type === 'attack');
+    attackNode.append('circle')
+      .attr('class', 'svg-pulse-circle')
+      .attr('fill', 'none')
+      .attr('stroke', '#ff2d55');
+
     // Node labels
     node.append('text')
       .text(d => d.label)

@@ -129,6 +129,9 @@ class SplunkAuth:
                     "SPLUNK_USERNAME/SPLUNK_PASSWORD in .env"
                 )
 
+            connect_kwargs["autologin"] = True
+            connect_kwargs["timeout"] = 5
+
             self._service = splunk_client.connect(**connect_kwargs)
             log.info(
                 "splunk_connected",

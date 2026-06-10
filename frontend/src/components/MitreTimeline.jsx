@@ -30,6 +30,7 @@ const TACTIC_SHORT = {
 };
 
 export default function MitreTimeline({ techniques }) {
+  const [activeTactic, setActiveTactic] = React.useState(null);
   // Map techniques to their tactics
   const detectedTactics = new Set();
   const tacticTechniques = {};
@@ -41,15 +42,15 @@ export default function MitreTimeline({ techniques }) {
     tacticTechniques[tactic].push(t);
   });
 
-  const nodeWidth = 72;
+  const nodeWidth = 36;
   const nodeHeight = 36;
-  const gap = 4;
+  const gap = 12;
   const svgWidth = TACTIC_ORDER.length * (nodeWidth + gap);
   const svgHeight = 90;
 
   return (
-    <div style={{ overflowX: 'auto', paddingBottom: '8px' }}>
-      <svg width={svgWidth} height={svgHeight} viewBox={`0 0 ${svgWidth} ${svgHeight}`}>
+    <div className="mitre-timeline-container" style={{ position: 'relative', overflow: 'visible', paddingBottom: '8px' }}>
+      <svg width="100%" height={svgHeight} viewBox={`0 0 ${svgWidth} ${svgHeight}`} preserveAspectRatio="xMidYMid meet">
         {/* Connection line */}
         <line
           x1={nodeWidth / 2}
@@ -68,7 +69,11 @@ export default function MitreTimeline({ techniques }) {
           const techniques = tacticTechniques[tactic] || [];
 
           return (
-            <g key={tactic}>
+            <g 
+              key={tactic} 
+              onClick={() => isDetected && setActiveTactic(activeTactic === tactic ? null : tactic)}
+              style={{ cursor: isDetected ? 'pointer' : 'default' }}
+            >
               {/* Node background */}
               <rect
                 x={x}
@@ -79,12 +84,13 @@ export default function MitreTimeline({ techniques }) {
                 fill={isDetected ? 'rgba(255, 45, 85, 0.15)' : 'var(--bg-surface)'}
                 stroke={isDetected ? 'var(--accent-red)' : 'var(--border-light)'}
                 strokeWidth={isDetected ? 1.5 : 0.5}
+                style={isDetected ? { filter: 'drop-shadow(0 0 12px #ff2d55)', animation: 'pulse-glow-red 2s ease-in-out infinite' } : {}}
               />
 
               {/* Tactic label */}
               <text
                 x={x + nodeWidth / 2}
-                y={y + nodeHeight / 2 + 1}
+                y={y + nodeHeight / 2 + (isDetected && techniques.length > 0 ? -4 : 1)}
                 textAnchor="middle"
                 dominantBaseline="middle"
                 fill={isDetected ? 'var(--accent-red)' : 'var(--text-muted)'}
@@ -95,20 +101,20 @@ export default function MitreTimeline({ techniques }) {
                 {TACTIC_SHORT[tactic] || tactic.slice(0, 8)}
               </text>
 
-              {/* Technique labels below */}
-              {techniques.map((t, j) => (
+              {/* T-code in smaller text below the tactic name on the highlighted node */}
+              {isDetected && techniques.length > 0 && (
                 <text
-                  key={j}
                   x={x + nodeWidth / 2}
-                  y={y + nodeHeight + 12 + (j * 12)}
+                  y={y + nodeHeight / 2 + 6}
                   textAnchor="middle"
-                  fill="var(--accent-blue)"
-                  fontSize="6.5"
+                  dominantBaseline="middle"
+                  fill="var(--accent-red)"
+                  fontSize="5"
                   fontFamily="var(--font-mono)"
                 >
-                  {t.id || t}
+                  {techniques.map(t => t.id || t).join(', ')}
                 </text>
-              ))}
+              )}
 
               {/* Active dot */}
               {isDetected && (
@@ -124,6 +130,32 @@ export default function MitreTimeline({ techniques }) {
           );
         })}
       </svg>
+      {/* Interactive Tooltip */}
+      {activeTactic && (
+        <div style={{
+          position: 'absolute',
+          top: '55px',
+          left: `${(TACTIC_ORDER.indexOf(activeTactic) * (nodeWidth + gap) + nodeWidth / 2) / svgWidth * 100}%`,
+          transform: 'translateX(-50%)',
+          background: '#0a0e17',
+          border: '1px solid var(--accent-red)',
+          padding: '8px 12px',
+          borderRadius: '6px',
+          color: 'var(--text-primary)',
+          fontSize: '0.75rem',
+          zIndex: 10,
+          width: 'max-content',
+          maxWidth: '220px',
+          boxShadow: '0 8px 24px rgba(255,45,85,0.2)',
+        }}>
+          <div style={{ fontWeight: 'bold', color: 'var(--accent-red)', marginBottom: '4px', borderBottom: '1px solid rgba(255,45,85,0.3)', paddingBottom: '4px' }}>
+            {activeTactic}
+          </div>
+          <div style={{ color: '#a8b2c1', whiteSpace: 'pre-wrap' }}>
+            {tacticTechniques[activeTactic]?.map(t => `${t.id} - ${t.name || 'Technique'}`).join('\n') || 'No techniques'}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

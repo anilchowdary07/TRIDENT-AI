@@ -93,10 +93,10 @@ class CDTSMClient:
         """
         spl = (
             f'| inputlookup {metric_name}\n'
-            f'| apply {settings.CDTSM_MODEL_NAME}\n'
-            f'  holdback={settings.CDTSM_HOLDBACK}\n'
-            f'  forecast_k={settings.CDTSM_FORECAST_K}\n'
-            f'  quantiles=[{settings.CDTSM_QUANTILE_LOWER}, 0.5, {settings.CDTSM_QUANTILE_UPPER}]'
+            f'| `cisco_cdtsm_forecast("{settings.CDTSM_MODEL_NAME}", '
+            f'holdback={settings.CDTSM_HOLDBACK}, '
+            f'forecast_k={settings.CDTSM_FORECAST_K}, '
+            f'quantiles="[{settings.CDTSM_QUANTILE_LOWER}, 0.5, {settings.CDTSM_QUANTILE_UPPER}]")`'
         )
         return spl
 
@@ -116,10 +116,10 @@ class CDTSMClient:
             f'sourcetype={settings.CDTSM_METRICS_SOURCETYPE} '
             f'metric_name="{metric_name}"\n'
             f'| timechart span={timespan} avg(metric_value) as value\n'
-            f'| apply {settings.CDTSM_MODEL_NAME}\n'
-            f'  holdback={settings.CDTSM_HOLDBACK}\n'
-            f'  forecast_k={settings.CDTSM_FORECAST_K}\n'
-            f'  quantiles=[{settings.CDTSM_QUANTILE_LOWER}, 0.5, {settings.CDTSM_QUANTILE_UPPER}]'
+            f'| `cisco_cdtsm_forecast("{settings.CDTSM_MODEL_NAME}", '
+            f'holdback={settings.CDTSM_HOLDBACK}, '
+            f'forecast_k={settings.CDTSM_FORECAST_K}, '
+            f'quantiles="[{settings.CDTSM_QUANTILE_LOWER}, 0.5, {settings.CDTSM_QUANTILE_UPPER}]")`'
         )
         return spl
 

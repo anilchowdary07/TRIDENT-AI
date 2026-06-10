@@ -1,7 +1,7 @@
 """
 TRIDENT-AI AWS Bedrock Client.
 
-Wraps AWS Bedrock API calls for incident synthesis using Claude claude-sonnet-4-5.
+Wraps AWS Bedrock API calls for incident synthesis using Claude 3.5 Sonnet.
 Supports both standard IAM credentials and bearer token authentication.
 
 Critical design decisions:
@@ -10,11 +10,7 @@ Critical design decisions:
   - Validates response with IncidentPackage pydantic model
   - Retries with exponential backoff on throttling (max 3 retries)
   - On JSON parse error: retries once with more explicit prompt
-
-Usage:
-    from src.coordinator.bedrock_client import BedrockClient
-    client = BedrockClient()
-    package = await client.synthesize_incident_package(findings)
+  - Forces region to us-east-1 to cleanly authenticate geographic inference profiles (us.*)
 """
 
 from __future__ import annotations
@@ -55,7 +51,7 @@ The JSON must contain exactly these fields:
   "technical_summary": "detailed technical root cause paragraph",
   "root_cause": "single most likely root cause",
   "contributing_factors": ["factor1", "factor2"],
-  "attack_timeline": [{"timestamp": "...", "event": "...", "source": "telemetry|security|platform"}],
+  "attack_timeline": [{"timestamp": "...", "event": "...", "source": "telemetry|security|platform"}], // MUST include at least 5 events, with at least one from each of the 3 sources
   "mitre_techniques": [{"id": "T1110", "name": "Brute Force", "tactic": "Credential Access"}],
   "iocs": {"ips": [], "domains": [], "users": []},
   "affected_services": ["service1", "service2"],
@@ -98,7 +94,7 @@ class BedrockError(Exception):
 
 class BedrockClient:
     """
-    AWS Bedrock client for incident synthesis using Claude claude-sonnet-4-5.
+    AWS Bedrock client for incident synthesis using Claude 3.5 Sonnet.
 
     Synthesises findings from all 3 TRIDENT agents into a complete
     incident package with executive summary, MITRE mapping,
@@ -106,27 +102,31 @@ class BedrockClient:
     """
 
     def __init__(self) -> None:
-        """Initialize the Bedrock client with AWS credentials."""
+        """Initialize the Bedrock client with AWS credentials and cross-region fallbacks."""
         self._client = self._create_client()
         log.info(
             "bedrock_client_init",
             model=settings.BEDROCK_MODEL_ID,
-            region=settings.AWS_REGION,
+            target_region="us-east-1",
             auth_method="iam" if settings.has_aws_iam_credentials else "bearer_token",
         )
 
     def _create_client(self):
         """
         Create the boto3 Bedrock runtime client.
-
-        Supports both standard IAM credentials and bearer token authentication.
+        
+        Forces the connection client region boundary to us-east-1 to support 
+        cross-region on-demand throughput inference constraints globally.
 
         Returns:
-            boto3 bedrock-runtime client.
+            boto3 bedrock-runtime client instance.
         """
+        # Overriding dynamic configuration region to resolve AP-SOUTH-1 handshake validation traps
+        inference_gateway_region = "us-east-1"
+
         boto_config = BotoConfig(
-            region_name=settings.AWS_REGION,
-            retries={"max_attempts": 0},  # We handle retries ourselves
+            region_name=inference_gateway_region,
+            retries={"max_attempts": 0},  # We handle exponential backoff loops manually
         )
 
         kwargs = {
@@ -137,9 +137,19 @@ class BedrockClient:
         if settings.has_aws_iam_credentials:
             kwargs["aws_access_key_id"] = settings.AWS_ACCESS_KEY_ID
             kwargs["aws_secret_access_key"] = settings.AWS_SECRET_ACCESS_KEY
-        # If no IAM creds, boto3 will use environment/instance profile/bearer token
-
-        return boto3.client(**kwargs)
+            if getattr(settings, "AWS_SESSION_TOKEN", None):
+                kwargs["aws_session_token"] = settings.AWS_SESSION_TOKEN
+            return boto3.client(**kwargs)
+        elif settings.has_aws_bearer_token:
+            import botocore
+            boto_config.signature_version = botocore.UNSIGNED
+            client = boto3.client(**kwargs)
+            def inject_bearer_token(request, **kwargs):
+                request.headers.add_header("Authorization", f"Bearer {settings.AWS_BEARER_TOKEN_BEDROCK}")
+            client.meta.events.register_first('before-sign.bedrock-runtime', inject_bearer_token)
+            return client
+        else:
+            return boto3.client(**kwargs)
 
     async def synthesize_incident_package(
         self,
@@ -162,12 +172,12 @@ class BedrockClient:
             "bedrock_synthesis_start",
             finding_keys=list(agent_findings.keys()),
         )
+        log.info("Calling AWS Bedrock bedrock-runtime...")
 
         user_prompt = self._build_user_prompt(agent_findings)
 
         for attempt in range(1, MAX_RETRIES + 1):
             try:
-                # Use retry suffix after first attempt
                 system = SYSTEM_PROMPT
                 if attempt > 1:
                     system += RETRY_PROMPT_SUFFIX
@@ -179,7 +189,6 @@ class BedrockClient:
                     user_prompt,
                 )
 
-                # Parse and validate JSON response
                 package = self._parse_response(response)
 
                 log.info(

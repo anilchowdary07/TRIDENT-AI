@@ -15,6 +15,27 @@ const AGENT_ICONS = {
   PlatformAuditor: '🖥️',
 };
 
+function generateBezierPath(data, width, height) {
+  if (!data || data.length === 0) return '';
+  const xStep = width / Math.max(1, data.length - 1);
+  const pts = data.map((v, i) => ({
+    x: i * xStep,
+    y: height - (v * height)
+  }));
+  
+  let path = `M ${pts[0].x},${pts[0].y}`;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[i];
+    const p1 = pts[i + 1];
+    const cp1x = p0.x + xStep / 2;
+    const cp1y = p0.y;
+    const cp2x = p1.x - xStep / 2;
+    const cp2y = p1.y;
+    path += ` C ${cp1x},${cp1y} ${cp2x},${cp2y} ${p1.x},${p1.y}`;
+  }
+  return path;
+}
+
 /**
  * Agent Status Sidebar — shows live heartbeat of all 3 agents.
  * Pulsing ring animation when status is INVESTIGATING.
@@ -88,24 +109,32 @@ function AgentCard({ agent }) {
         <div>Last anomaly: {agent.last_anomaly || '—'}</div>
       </div>
 
-      {/* Mini sparkline placeholder */}
+      {/* Mini sparkline */}
       <div style={{
         marginTop: '8px',
-        height: '20px',
-        display: 'flex',
-        alignItems: 'flex-end',
-        gap: '2px',
+        height: '24px',
+        width: '100%',
       }}>
-        {(agent.confidence_history || [0.3, 0.5, 0.4, 0.6, 0.3, 0.8, 0.4, 0.5, 0.7, 0.9]).map((v, i) => (
-          <div key={i} style={{
-            flex: 1,
-            height: `${v * 100}%`,
-            background: v > 0.7 ? 'var(--accent-red)' : 'var(--accent-teal)',
-            borderRadius: '1px',
-            opacity: 0.6,
-            transition: 'height 0.3s ease',
-          }} />
-        ))}
+        <svg width="100%" height="100%" viewBox="0 0 100 24" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id={`sparkline-grad-${agent.agent_name}`} x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stopColor={statusColor} stopOpacity="0.4" />
+              <stop offset="100%" stopColor={statusColor} stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          <path
+            d={generateBezierPath(agent.confidence_history || [0.3, 0.5, 0.4, 0.6, 0.3, 0.8, 0.4, 0.5, 0.7, 0.9], 100, 24) + ` L 100,24 L 0,24 Z`}
+            fill={`url(#sparkline-grad-${agent.agent_name})`}
+            stroke="none"
+          />
+          <path
+            d={generateBezierPath(agent.confidence_history || [0.3, 0.5, 0.4, 0.6, 0.3, 0.8, 0.4, 0.5, 0.7, 0.9], 100, 24)}
+            fill="none"
+            stroke={statusColor}
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          />
+        </svg>
       </div>
     </div>
   );

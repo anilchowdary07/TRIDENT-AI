@@ -1,21 +1,31 @@
 import { useState, useCallback } from 'react';
 
 /**
- * Hook: handles remediation approve/reject and MCP tool call execution.
+ * Hook: handles remediation approve/reject and MCP tool call execution via the backend.
  */
 export function useApproval() {
   const [approvalStatus, setApprovalStatus] = useState({});
 
-  const approveRemediation = useCallback(async (optionKey, option) => {
+  const approveRemediation = useCallback(async (optionKey, incidentId, actionIndex) => {
     setApprovalStatus(prev => ({ ...prev, [optionKey]: 'approved' }));
 
-    // Simulate MCP tool call execution
     try {
-      // In production: POST /api/approve-remediation → backend calls MCP tool
-      await new Promise(resolve => setTimeout(resolve, 3000));
-      setApprovalStatus(prev => ({ ...prev, [optionKey]: 'completed' }));
+      const res = await fetch(`http://localhost:8000/api/approve/${incidentId}`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({action_index: actionIndex})
+      });
+      const result = await res.json();
+      if (result.success) {
+        setApprovalStatus(prev => ({ ...prev, [optionKey]: 'completed' }));
+        return true;
+      } else {
+        setApprovalStatus(prev => ({ ...prev, [optionKey]: 'failed' }));
+        return false;
+      }
     } catch (error) {
       setApprovalStatus(prev => ({ ...prev, [optionKey]: 'failed' }));
+      return false;
     }
   }, []);
 

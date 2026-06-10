@@ -79,6 +79,7 @@ class AutonomousLoop:
         # ─── Thread control ──────────────────────────────────────────
         self._thread: threading.Thread | None = None
         self._stop_event = threading.Event()
+        self._poll_event = threading.Event()
         self._running = False
 
         log.info(
@@ -129,6 +130,10 @@ class AutonomousLoop:
     def is_running(self) -> bool:
         """Check if the loop is currently running."""
         return self._running and self._thread is not None and self._thread.is_alive()
+
+    def trigger_immediate_poll(self) -> None:
+        """Interrupt sleep to force an immediate poll cycle."""
+        self._poll_event.set()
 
     @property
     def state(self) -> StateManager:
@@ -190,7 +195,9 @@ class AutonomousLoop:
                 poll_number=poll_num,
                 sleep_seconds=settings.POLL_INTERVAL_SECONDS,
             )
-            self._stop_event.wait(timeout=settings.POLL_INTERVAL_SECONDS)
+            # Use poll_event to allow early waking, but stop if stop_event is set
+            self._poll_event.wait(timeout=settings.POLL_INTERVAL_SECONDS)
+            self._poll_event.clear()
 
         log.info("autonomous_loop_thread_exiting")
 
@@ -206,7 +213,8 @@ class AutonomousLoop:
             poll_num: Current poll cycle number.
         """
         # ─── Step 1: CDTSM anomaly check ────────────────────────────
-        telemetry_finding = await self._telemetry.investigate()
+        context = {"demo_scenario_active": getattr(self._state, "demo_scenario_active", False)}
+        telemetry_finding = await self._telemetry.investigate(context)
         self._state.update_agent_heartbeat(self._telemetry.get_heartbeat())
 
         if not isinstance(telemetry_finding, TelemetryFinding):
@@ -279,6 +287,12 @@ class AutonomousLoop:
 
             # Add to state tracker
             self._state.add_incident(package)
+
+            await self._search.post_event(
+                index="trident_incidents",
+                event=package.model_dump(mode="json") if hasattr(package, 'model_dump') else package.dict(),
+                sourcetype="trident:incident"
+            )
 
             log.info(
                 "incident_package_created",

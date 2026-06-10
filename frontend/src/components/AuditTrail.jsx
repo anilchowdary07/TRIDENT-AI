@@ -1,20 +1,13 @@
 import React from 'react';
+import { useAuditTrail } from '../hooks/useAuditTrail';
 
 /**
  * MCP JSON-RPC audit trail — bottom stream panel.
  * Shows timestamped tool calls with security violation highlighting.
  */
 
-const DEMO_AUDIT = [
-  { timestamp: new Date().toISOString(), rpc_id: 'rpc-a1b2c3', method: 'tools/list', status: 200, security_violation: false },
-  { timestamp: new Date().toISOString(), rpc_id: 'rpc-d4e5f6', method: 'tools/call', status: 200, security_violation: false },
-  { timestamp: new Date().toISOString(), rpc_id: 'rpc-g7h8i9', method: 'resources/read', status: 200, security_violation: false },
-  { timestamp: new Date().toISOString(), rpc_id: 'rpc-j0k1l2', method: 'tools/call', status: 400, security_violation: true },
-  { timestamp: new Date().toISOString(), rpc_id: 'rpc-m3n4o5', method: 'tools/call', status: 200, security_violation: false },
-];
-
 export default function AuditTrail() {
-  const entries = DEMO_AUDIT;
+  const { auditLogs: entries } = useAuditTrail();
 
   return (
     <div>

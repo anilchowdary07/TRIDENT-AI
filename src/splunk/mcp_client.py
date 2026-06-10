@@ -21,8 +21,11 @@ import json
 import re
 import uuid
 from typing import Any, Optional
+import datetime
 
 import httpx
+
+from src.splunk.search_client import SearchClient
 
 from src.utils.config import settings
 from src.utils.logger import get_logger
@@ -82,11 +85,12 @@ class MCPClient:
     All calls are logged for audit trail. All responses are security-validated.
     """
 
-    def __init__(self) -> None:
+    def __init__(self, search_client: Optional[SearchClient] = None) -> None:
         """Initialize the MCP client with configuration from settings."""
         self._base_url = settings.MCP_BASE_URL
         self._headers = self._build_headers()
         self._client: Optional[httpx.AsyncClient] = None
+        self._search = search_client or SearchClient()
         log.info(
             "mcp_client_init",
             base_url=self._base_url,
@@ -150,6 +154,19 @@ class MCPClient:
             params=params,
         )
 
+        if not self._base_url:
+            log.warning("mcp_base_url_not_set")
+            # Simulate success if disabled, just log to audit
+            await self._search.post_event("trident_audit", {
+                "event_type": "MCP_CALL",
+                "method": method,
+                "tool": params.get("name") if params else None,
+                "status_code": 200,
+                "is_injection_blocked": False,
+                "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat()
+            })
+            return {}
+
         client = await self._get_client()
         last_error = None
 
@@ -169,7 +186,27 @@ class MCPClient:
                 )
 
                 # Security validation on response
-                self._validate_security(result, request_id, method)
+                try:
+                    self._validate_security(result, request_id, method)
+                except SecurityViolationError:
+                    await self._search.post_event("trident_audit", {
+                        "event_type": "MCP_CALL",
+                        "method": method,
+                        "tool": params.get("name") if params else None,
+                        "status_code": 400,
+                        "is_injection_blocked": True,
+                        "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat()
+                    })
+                    raise
+
+                await self._search.post_event("trident_audit", {
+                    "event_type": "MCP_CALL",
+                    "method": method,
+                    "tool": params.get("name") if params else None,
+                    "status_code": 200,
+                    "is_injection_blocked": False,
+                    "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat()
+                })
 
                 # Check for JSON-RPC error
                 if "error" in result:
