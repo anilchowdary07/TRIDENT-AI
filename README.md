@@ -65,10 +65,10 @@ TRIDENT-AI implements an **MCP (Model Context Protocol)** server acting as a sec
 ### 1. Environment Configuration
 Create a `.env` file in the root directory:
 ```env
-SPLUNK_HOST=localhost
+SPLUNK_HOST=your-instance.splunkcloud.com
 SPLUNK_PORT=8089
-SPLUNK_USERNAME=admin
-SPLUNK_PASSWORD=your_secure_password
+SPLUNK_TOKEN=your-splunk-api-token
+SPLUNK_HEC_TOKEN=your-hec-token
 
 AWS_ACCESS_KEY_ID=your_aws_key
 AWS_SECRET_ACCESS_KEY=your_aws_secret
@@ -77,9 +77,22 @@ AWS_REGION=us-east-1
 MCP_SERVER_PORT=5001
 ```
 
-### 2. Running the Sandbox / Demo Mode (No Live Splunk Required)
+### 2. Running with Live Splunk Cloud
 
-If you do not have a live Splunk instance configured with CDTSM locally, you can test the entire agentic loop using our simulated event injector:
+To run TRIDENT-AI against your live Splunk Cloud environment:
+
+```bash
+# Terminal 1: Start backend in Live Mode
+python3 main.py --mode live
+
+# Terminal 2: Start the React UI
+cd frontend
+npm run dev
+```
+
+### 3. Quick Start without Splunk (evaluation only)
+
+If you do not have a live Splunk instance configured with CDTSM, you can test the entire agentic loop using our simulated event injector:
 
 ```bash
 # Terminal 1: Start backend in Mock/Simulation Mode
