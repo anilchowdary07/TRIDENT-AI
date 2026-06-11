@@ -4,7 +4,7 @@
 
 ---
 
-### 🏆 Grand Prize Criteria
+### 🏆  Criteria
 
 | Criterion | TRIDENT-AI Implementation |
 |-----------|---------------------------|
@@ -12,11 +12,11 @@
 | **Technical Complexity** | asyncio.gather() parallel agents, MCP JSON-RPC, Bedrock synthesis, D3 network graphs |
 | **Practical Value** | Reduces MTTR from hours to seconds. $600B enterprise downtime problem |
 | **Completeness** | Full pipeline: detection → investigation → synthesis → remediation → audit |
-| **Polish** | Dark Ops Command Centre UI, comprehensive docs, demo simulation |
+| **Polish** | Dark Ops Command Centre UI, comprehensive docs, demo simulation 
 
 ---
 
-### 🛡️ Best of Security
+### 🛡️  Security
 
 | Criterion | TRIDENT-AI Implementation |
 |-----------|---------------------------|
@@ -28,7 +28,7 @@
 
 ---
 
-### 🔌 Best Use of MCP Server
+### 🔌  MCP Server
 
 | Criterion | TRIDENT-AI Implementation |
 |-----------|---------------------------|
@@ -40,7 +40,7 @@
 
 ---
 
-### 🤖 Best Use of Hosted Models
+### 🤖  Hosted Models
 
 | Criterion | TRIDENT-AI Implementation |
 |-----------|---------------------------|
@@ -66,12 +66,3 @@
 
 ---
 
-### What Winning Looks Like
-
-When a judge reviews TRIDENT-AI, they should feel:
-
-1. **Surprise** — "The agents detected this before anyone opened a laptop?"
-2. **Respect** — "This is using CDTSM and Foundation AI exactly as intended"
-3. **Delight** — "This dashboard looks like an actual product"
-4. **Trust** — "The MCP audit trail proves every action was logged and validated"
-5. **Desire** — "I wish I had this at my company right now"
