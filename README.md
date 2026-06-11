@@ -26,7 +26,7 @@ When a metric deviates from its predicted baseline, TRIDENT-AI awakens three dis
 * **ThreatMarshall:** Scours security indexes for concurrent IOCs and maps them to MITRE techniques.
 * **PlatformAuditor:** Checks Splunk's internal health to ensure resource-hogging searches aren't exacerbating the outage.
 
-The agents synthesize their findings via AWS Bedrock (Claude 3.5 Sonnet) into a pristine **Incident Package**, complete with a 1-click remediation runbook powered by the **Model Context Protocol (MCP)**. 
+The agents use **Splunk's Foundation AI Security Model** for primary threat classification and anomaly contextualization. Once the primary intelligence is gathered, **AWS Bedrock (Claude 3.5 Sonnet)** acts as the Synthesis Coordinator to compile these disparate findings into a pristine **Incident Package**, complete with a 1-click remediation runbook powered by the **Model Context Protocol (MCP)**.
 
 **Result:** A 45-minute manual investigation is reduced to a 3-minute, one-click autonomous resolution.
 
@@ -41,9 +41,9 @@ Platform stability and safety are critical. TRIDENT-AI operates with strict exec
 
 ## 🏗️ Architecture & Component Breakdown
 
-### 🤖 The Agent Swarm (Orchestrated via AWS Bedrock)
+### 🤖 The Agent Swarm (Primary AI: Foundation AI Security Model)
 *   **TelemetrySentinel:** Executes periodic background queries using the Splunk Python SDK to pull high-cardinality metric streams. It passes these arrays into the **Cisco Deep Time Series Model (CDTSM)** to predict expected baselines and flag zero-shot anomalies ($>3\sigma$ deviations).
-*   **ThreatMarshall:** When an anomaly is detected, this agent targets security indexes (e.g., `index=security` or `sourcetype=pan:traffic`), extracting concurrent Indicators of Compromise (IOCs) like spikes in 403 errors or unusual egress destinations, mapping them directly to **MITRE ATT&CK Matrix v14** techniques.
+*   **ThreatMarshall:** Driven by **Foundation AI**, this agent targets security indexes (e.g., `index=security` or `sourcetype=pan:traffic`), extracting concurrent Indicators of Compromise (IOCs) like spikes in 403 errors or unusual egress destinations, mapping them directly to **MITRE ATT&CK Matrix v14** techniques.
 *   **PlatformAuditor:** Queries Splunk’s REST API (`| rest /services/search/jobs`) to evaluate ongoing indexing latency and locate expensive, unoptimized scheduled searches that might be compounding system instability during the crisis.
 
 ### 🔌 The Splunk MCP Server Integration
