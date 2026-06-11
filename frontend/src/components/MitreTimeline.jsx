@@ -49,7 +49,7 @@ export default function MitreTimeline({ techniques }) {
   const svgHeight = 90;
 
   return (
-    <div className="mitre-timeline-container" style={{ position: 'relative', overflow: 'visible', paddingBottom: '8px' }}>
+    <div className="mitre-timeline-container" style={{ position: 'relative', overflowX: 'hidden', paddingBottom: '8px' }}>
       <svg width="100%" height={svgHeight} viewBox={`0 0 ${svgWidth} ${svgHeight}`} preserveAspectRatio="xMidYMid meet">
         {/* Connection line */}
         <line

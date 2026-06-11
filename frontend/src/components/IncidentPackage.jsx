@@ -98,7 +98,10 @@ export default function IncidentPackage({ incident, onBack }) {
         {/* ─── Section 3: Telemetry Forecast ────────────────────── */}
         <div className="package-section">
           <div className="package-section__label">TELEMETRY FORECAST — CDTSM QUANTILE BAND</div>
-          <TelemetryChart telemetryData={incident.agent_trace?.telemetry_sentinel} />
+          <TelemetryChart 
+            telemetryData={incident.agent_trace?.telemetry_sentinel} 
+            timeline={incident.attack_timeline}
+          />
         </div>
 
         {/* ─── Section 4: MITRE ATT&CK Chain ──────────────────────── */}
@@ -212,7 +215,7 @@ function ConfidenceGauge({ value }) {
   const radius = 26;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (value / 100) * circumference;
-  const color = value < 50 ? '#00e5cc' : value < 80 ? '#ff8c00' : 'var(--accent-red)';
+  const color = value >= 75 ? 'var(--accent-teal)' : value >= 50 ? 'var(--accent-amber)' : 'var(--accent-red)';
 
   return (
     <div className="confidence-gauge">
