@@ -26,7 +26,7 @@ When a metric deviates from its predicted baseline, TRIDENT-AI awakens three dis
 * **ThreatMarshall:** Scours security indexes for concurrent IOCs and maps them to MITRE techniques.
 * **PlatformAuditor:** Checks Splunk's internal health to ensure resource-hogging searches aren't exacerbating the outage.
 
-The agents use **Splunk's Foundation AI Security Model** for primary threat classification and anomaly contextualization. Once the primary intelligence is gathered, **AWS Bedrock (Claude 3.5 Sonnet)** acts as the Synthesis Coordinator to compile these disparate findings into a pristine **Incident Package**, complete with a 1-click remediation runbook powered by the **Model Context Protocol (MCP)**.
+The agents use **Splunk's Foundation AI Security Model** for heavy-lifting threat classification, IOC extraction, and anomaly contextualization. Once the primary intelligence is gathered natively, **AWS Bedrock** acts merely as the Synthesis Coordinator to compile these disparate findings into a pristine JSON **Incident Package**, complete with a 1-click remediation runbook powered by the **Model Context Protocol (MCP)**.
 
 **Result:** A 45-minute manual investigation is reduced to a 3-minute, one-click autonomous resolution.
 
@@ -47,7 +47,7 @@ Platform stability and safety are critical. TRIDENT-AI operates with strict exec
 *   **PlatformAuditor:** Queries Splunk’s REST API (`| rest /services/search/jobs`) to evaluate ongoing indexing latency and locate expensive, unoptimized scheduled searches that might be compounding system instability during the crisis.
 
 ### 🔌 The Splunk MCP Server Integration
-TRIDENT-AI implements an **MCP (Model Context Protocol)** server acting as a secure gateway between Claude 3.5 Sonnet and your infrastructure. The server exposes a restricted set of read/write schema tools to the LLM:
+TRIDENT-AI implements an **MCP (Model Context Protocol)** server acting as a secure gateway between the Synthesis Coordinator and your Splunk infrastructure. The server exposes a restricted set of read/write schema tools to the execution layer:
 *   `get_search_results(query)`: Secure read-only access to specific Splunk indexes.
 *   `terminate_splunk_job(sid)`: Allows `PlatformAuditor` to kill runaway searches.
 *   `deploy_containment_rule(ip_address)`: Drafts a perimeter block rule for the engineer's 1-click approval.
@@ -60,7 +60,7 @@ TRIDENT-AI implements an **MCP (Model Context Protocol)** server acting as a sec
 - Python 3.11+
 - Node.js 18+
 - Splunk Enterprise / Cloud (with Splunk AI Toolkit v5.7.3+)
-- AWS Account (with `anthropic.claude-3-5-sonnet-v1:0` model access enabled in IAM)
+- AWS Account (with Bedrock synthesis access enabled in IAM)
 
 ### 1. Environment Configuration
 Create a `.env` file in the root directory:
