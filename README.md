@@ -41,55 +41,7 @@ Platform stability and safety are critical. TRIDENT-AI operates with strict exec
 
 ## 🏗️ Architecture & Component Breakdown
 
-```mermaid
-graph TD
-    subgraph "Splunk Cloud Data Lake"
-        DATA[(Metrics, Logs, Jobs)]
-        CDTSM[Splunk AI Toolkit<br/>Cisco Deep Time Series]
-        FND[Foundation AI<br/>foundation-sec-1.1-8b]
-    end
-
-    subgraph "TRIDENT-AI Agent Swarm"
-        TS[TelemetrySentinel]
-        TM[ThreatMarshall]
-        PA[PlatformAuditor]
-        SYNC((asyncio Coordinator))
-    end
-
-    subgraph "Synthesis & Execution"
-        BEDROCK[Synthesis Engine<br/>Formatting & JSON]
-        UI[React Dashboard<br/>Human-in-the-Loop]
-        MCP[Splunk MCP Server<br/>Action Execution]
-    end
-
-    DATA -- 1. Metric Streams --> TS
-    TS -- "| apply cdtsm" --> CDTSM
-    CDTSM -- Zero-Shot Anomalies --> TS
-
-    DATA -- 2. Security Logs --> TM
-    TM -- Autonomous Classification --> FND
-    FND -- MITRE Mapping & IOCs --> TM
-
-    DATA -- 3. REST API --> PA
-    
-    TS --> SYNC
-    TM --> SYNC
-    PA --> SYNC
-
-    SYNC -- 4. Raw Parallel Output --> BEDROCK
-    BEDROCK -- 5. Structured Incident --> UI
-    
-    UI -- 6. Runbook Approval --> MCP
-    MCP -- 7. Tool Execution --> DATA
-
-    classDef splunk fill:#E8ECF4,stroke:#ff2d55,stroke-width:2px;
-    classDef agent fill:#0a0e17,stroke:#00E5CC,stroke-width:1px,color:#fff;
-    classDef external fill:#1a1a2e,stroke:#4a4e69,stroke-width:1px,color:#fff;
-    
-    class CDTSM,FND,MCP splunk;
-    class TS,TM,PA,SYNC agent;
-    class BEDROCK external;
-```
+![TRIDENT-AI Architecture](architecture.png)
 
 ### 🤖 The Agent Swarm (Primary AI: Foundation AI Security Model)
 *   **TelemetrySentinel:** Executes periodic background queries using the Splunk Python SDK to pull high-cardinality metric streams. It passes these arrays into the **Cisco Deep Time Series Model (CDTSM)** to predict expected baselines and flag zero-shot anomalies ($>3\sigma$ deviations).
