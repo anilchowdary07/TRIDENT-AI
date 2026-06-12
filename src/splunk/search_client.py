@@ -271,15 +271,29 @@ class SearchClient:
         log.info("event_writing", index=index, sourcetype=sourcetype)
 
         try:
-            await asyncio.get_event_loop().run_in_executor(
-                None,
-                self._write_event_sync,
-                event_data,
-                index,
-                sourcetype,
-            )
-            log.info("event_written", index=index)
-            return True
+            import httpx
+            
+            hec_token = settings.SPLUNK_HEC_TOKEN
+            if not hec_token:
+                log.error("Missing SPLUNK_HEC_TOKEN in environment")
+                return False
+                
+            url = f"https://{settings.SPLUNK_HOST}:8088/services/collector/event"
+            headers = {"Authorization": f"Splunk {hec_token}"}
+            payload = {
+                "event": event_data,
+                "sourcetype": sourcetype,
+                "index": index
+            }
+            
+            async with httpx.AsyncClient(verify=settings.SPLUNK_VERIFY_SSL) as http:
+                resp = await http.post(url, headers=headers, json=payload, timeout=15)
+                if resp.status_code == 200:
+                    log.info("event_written", index=index)
+                    return True
+                else:
+                    log.error("event_write_failed", index=index, status=resp.status_code, error=resp.text)
+                    return False
         except Exception as e:
             log.error("event_write_failed", index=index, error=str(e))
             return False
@@ -290,13 +304,8 @@ class SearchClient:
         index: str,
         sourcetype: str,
     ) -> None:
-        """Write an event synchronously via the Splunk SDK."""
-        service = self._auth.get_service()
-        target_index = service.indexes[index]
-        target_index.submit(
-            json.dumps(event_data),
-            sourcetype=sourcetype,
-        )
+        """Deprecated: Use HEC implementation in write_event directly."""
+        pass
 
     async def get_events(
         self,

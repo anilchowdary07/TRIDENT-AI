@@ -40,6 +40,7 @@ class TridentSettings(BaseSettings):
     SPLUNK_HOST: str = Field(..., description="Splunk Cloud instance hostname")
     SPLUNK_PORT: int = Field(default=8089, description="Splunk management port")
     SPLUNK_TOKEN: Optional[str] = Field(default=None, description="Splunk Bearer token")
+    SPLUNK_HEC_TOKEN: Optional[str] = Field(default=None, description="Splunk HEC token for port 8088")
     SPLUNK_USERNAME: Optional[str] = Field(default=None, description="Splunk username (fallback)")
     SPLUNK_PASSWORD: Optional[str] = Field(default=None, description="Splunk password (fallback)")
     SPLUNK_INDEX: str = Field(default="main", description="Default Splunk index")
