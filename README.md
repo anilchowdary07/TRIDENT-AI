@@ -41,7 +41,7 @@ Platform stability and safety are critical. TRIDENT-AI operates with strict exec
 
 ## 🏗️ Architecture & Component Breakdown
 
-![TRIDENT-AI Architecture](architecture.png)
+![TRIDENT-AI Architecture](architecture_diagram.png)
 
 ### 🤖 The Agent Swarm
 *   **TelemetrySentinel:** Executes periodic background polling using the Splunk Python SDK to pull high-cardinality metric streams. *TRIDENT's architecture integrates natively with Splunk's built-in ML-SPL predict algorithm for mathematically rigorous anomaly forecasting. The execution utilizes quantile confidence bands (upper95/lower95) for definitive zero-shot detection.*
