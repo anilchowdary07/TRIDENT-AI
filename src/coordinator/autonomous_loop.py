@@ -255,6 +255,7 @@ class AutonomousLoop:
             "anomaly_severity": telemetry_finding.anomaly_severity,
             "anomaly_timestamp": telemetry_finding.anomaly_timestamp,
             "poll_number": poll_num,
+            "demo_scenario_active": context.get("demo_scenario_active", False),
         }
 
         # Run Threat Marshall and Platform Auditor in parallel

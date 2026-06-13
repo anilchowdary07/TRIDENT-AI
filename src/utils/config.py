@@ -49,10 +49,11 @@ class TridentSettings(BaseSettings):
 
     # ─── Splunk MCP Server ───────────────────────────────────────────────
     MCP_BASE_URL: str = Field(
-        default="",
+        default="https://prd-p-3guwi.splunkcloud.com/en-US/splunkd/__raw/services/mcp",
         description="Base URL for MCP Server JSON-RPC endpoint",
     )
     MCP_PROTOCOL: str = Field(default="sse", description="MCP transport protocol")
+    MCP_TOKEN: str = Field(default="", description="MCP authentication token")
 
     # ─── CDTSM (Cisco Deep Time Series Model) ───────────────────────────
     CDTSM_MODEL_NAME: str = Field(default="cisco_ai_assistant")

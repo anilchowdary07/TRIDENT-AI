@@ -1,0 +1,39 @@
+graph TD
+    classDef splunk fill:#EC008C,stroke:#fff,stroke-width:2px,color:#fff,rx:5px,ry:5px;
+    classDef aws fill:#FF9900,stroke:#fff,stroke-width:2px,color:#fff,rx:5px,ry:5px;
+    classDef agent fill:#0A5C36,stroke:#fff,stroke-width:2px,color:#fff,rx:5px,ry:5px;
+    classDef ui fill:#005E7A,stroke:#fff,stroke-width:2px,color:#fff,rx:5px,ry:5px;
+    classDef db fill:#333333,stroke:#fff,stroke-width:2px,color:#fff,rx:5px,ry:5px;
+
+    SplunkData[(Splunk Cloud<br/>Metrics & Logs)]:::db
+
+    subgraph "Autonomous Agent Swarm"
+        direction LR
+        TS[TelemetrySentinel<br/>Native ML-SPL Predict]:::agent
+        TM[ThreatMarshall<br/>Security Log Retrieval]:::agent
+        PA[PlatformAuditor<br/>REST API Diagnosis]:::agent
+    end
+
+    subgraph "Integration Layer"
+        MCP[Splunk MCP Server<br/>JSON-RPC 2.0 via Port 443 Proxy]:::splunk
+        Bedrock[AWS Bedrock<br/>Claude Sonnet 3.5]:::aws
+    end
+
+    subgraph "Presentation Layer"
+        Dashboard[TRIDENT-AI React UI<br/>Incident Queue]:::ui
+    end
+
+    SplunkData -->|Continuous Polling| TS
+    TS -- "Quantile Breach Detected!" --> TM
+    TS -- "Quantile Breach Detected!" --> PA
+
+    TS -->|Context| MCP
+    TM -->|Context| MCP
+    PA -->|Context| MCP
+
+    MCP -->|Aggregated Agent Findings| Bedrock
+    Bedrock -->|Structured Incident Package| Dashboard
+    
+    Dashboard -. "Human-in-the-Loop" .-> Action{Approve?}
+    Action -->|Yes: Execute Remediation| MCP
+    MCP --> |Action Complete| SplunkData

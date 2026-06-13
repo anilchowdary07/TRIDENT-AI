@@ -26,7 +26,7 @@ When a metric deviates from its predicted baseline, TRIDENT-AI awakens three dis
 * **ThreatMarshall:** Scours security indexes for concurrent IOCs and maps them to MITRE techniques.
 * **PlatformAuditor:** Checks Splunk's internal health to ensure resource-hogging searches aren't exacerbating the outage.
 
-The agents use **Splunk's Foundation AI Security Model** for heavy-lifting threat classification, IOC extraction, and anomaly contextualization. Because Foundation AI is hosted natively within Splunk, all sensitive security logs remain entirely within your trust boundary (100% data residency). Once the primary intelligence is gathered natively, an external **Synthesis Coordinator** (via AWS Bedrock) is used merely to format these disparate findings into a pristine JSON **Incident Package**, complete with a 1-click remediation runbook powered by the **Model Context Protocol (MCP)**.
+The agents retrieve security context natively via **Splunk's Model Context Protocol (MCP)**. All sensitive security logs remain entirely within your trust boundary until explicitly passed for analysis. Once the primary intelligence is gathered natively, an external **Synthesis Coordinator** (via AWS Bedrock) is used to perform heavy-lifting threat classification and format these disparate findings into a pristine JSON **Incident Package**, complete with a 1-click remediation runbook powered by MCP.
 
 **Result:** 45 minutes → under 3 minutes, transforming manual investigation into one-click autonomous resolution.
 
@@ -43,9 +43,9 @@ Platform stability and safety are critical. TRIDENT-AI operates with strict exec
 
 ![TRIDENT-AI Architecture](architecture.png)
 
-### 🤖 The Agent Swarm (Primary AI: Foundation AI Security Model)
+### 🤖 The Agent Swarm
 *   **TelemetrySentinel:** Executes periodic background polling using the Splunk Python SDK to pull high-cardinality metric streams. *TRIDENT's architecture integrates natively with Splunk's built-in ML-SPL predict algorithm for mathematically rigorous anomaly forecasting. The execution utilizes quantile confidence bands (upper95/lower95) for definitive zero-shot detection.*
-*   **ThreatMarshall:** Targets security indexes (e.g., `index=security` or `sourcetype=pan:traffic`), extracting concurrent Indicators of Compromise (IOCs). *TRIDENT is designed to use Splunk Foundation AI for autonomous log classification. In this submission's live environment, a local heuristic log-parsing engine serves as the functional equivalent for Foundation AI, analyzing extracted IOCs to produce comparable classification outputs for the demo's threat patterns.*
+*   **ThreatMarshall:** Targets security indexes (e.g., `index=security` or `sourcetype=pan:traffic`), extracting concurrent Indicators of Compromise (IOCs). *TRIDENT uses the Splunk MCP Server to retrieve security logs and leverages AWS Bedrock to map the extracted threat patterns directly to MITRE ATT&CK version 14.*
 *   **PlatformAuditor:** Queries Splunk’s REST API (`| rest /services/search/jobs`) to evaluate ongoing indexing latency and locate expensive, unoptimized scheduled searches that might be compounding system instability during the crisis.
 
 ### 🔌 The Splunk MCP Server Integration

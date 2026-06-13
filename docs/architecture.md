@@ -21,7 +21,7 @@ TRIDENT-AI is an autonomous incident intelligence system with three coordinating
 │              AutonomousLoop (coordinator/)                    │
 │   ├── StateManager — cooldowns, active incidents             │
 │   ├── TelemetrySentinel — ML-SPL predict anomaly detection   │
-│   ├── ThreatMarshall — Foundation AI threat analysis         │
+│   ├── ThreatMarshall — Security log retrieval                │
 │   ├── PlatformAuditor — SPL platform health queries          │
 │   ├── IncidentPackageBuilder — Bedrock synthesis             │
 │   └── BedrockClient — AWS API wrapper                        │
@@ -32,7 +32,7 @@ TRIDENT-AI is an autonomous incident intelligence system with three coordinating
 │   ├── SplunkAuth — token + password dual auth                │
 │   ├── SearchClient — async SPL execution                     │
 │   ├── MCPClient — JSON-RPC 2.0 with security validation      │
-│   └── HostedModels — ML-SPL + Foundation AI wrappers         │
+│   └── HostedModels — ML-SPL wrappers                         │
 └─────────────────────────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────────────────────────┐

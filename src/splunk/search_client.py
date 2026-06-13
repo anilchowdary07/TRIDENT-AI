@@ -126,7 +126,7 @@ class SearchClient:
                 response = await client.post(search_url, headers=headers, data=search_payload, timeout=60.0)
                 
                 # Graceful fallback for missing ML models on Trial tiers
-                if response.status_code == 400 and "| apply" in spl_query:
+                if response.status_code == 400 and ("| apply" in spl_query or "cisco_cdtsm_forecast" in spl_query):
                     log.warning("Splunk AI model not found on this instance (400 Bad Request). Falling back to local simulation.")
                     return [{"_raw": "{\"fallback\": true, \"message\": \"Model not installed on trial tier\"}"}]
                     

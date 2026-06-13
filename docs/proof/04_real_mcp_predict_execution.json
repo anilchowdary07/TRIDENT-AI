@@ -1,0 +1,51 @@
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"results\":[{\"_lowermetric\":\"lower95(prediction(metric))\",\"_predictedmetric\":\"prediction(metric)\",\"_time\":\"2026-06-13 07:20:39.000 UTC\",\"_uppermetric\":\"upper95(prediction(metric))\",\"lower95(prediction(metric))\":\"9.713608267678325\",\"metric\":\"50\",\"prediction(metric)\":\"50.0\",\"time_id\":\"1\",\"upper95(prediction(metric))\":\"90.28639173232168\"},{\"_lowermetric\":\"lower95(prediction(metric))\",\"_predictedmetric\":\"prediction(metric)\",\"_time\":\"2026-06-13 07:20:39.000 UTC\",\"_uppermetric\":\"upper95(prediction(metric))\",\"lower95(prediction(metric))\":\"-40.72126145400278\",\"metric\":\"13\",\"prediction(metric)\":\"13.0\",\"time_id\":\"2\",\"upper95(prediction(metric))\":\"66.72126145400279\"},{\"_lowermetric\":\"lower95(prediction(metric))\",\"_predictedmetric\":\"prediction(metric)\",\"_time\":\"2026-06-13 07:20:39.000 UTC\",\"_uppermetric\":\"upper95(prediction(metric))\",\"lower95(prediction(metric))\":\"13.905269502130686\",\"metric\":\"69\",\"prediction(metric)\":\"66.96236965871407\",\"time_id\":\"3\",\"upper95(prediction(metric))\":\"120.01946981529744\"}],\"truncated\":false,\"total_rows\":12}"
+      }
+    ],
+    "structuredContent": {
+      "results": [
+        {
+          "_lowermetric": "lower95(prediction(metric))",
+          "_predictedmetric": "prediction(metric)",
+          "_time": "2026-06-13 07:20:39.000 UTC",
+          "_uppermetric": "upper95(prediction(metric))",
+          "lower95(prediction(metric))": "9.713608267678325",
+          "metric": "50",
+          "prediction(metric)": "50.0",
+          "time_id": "1",
+          "upper95(prediction(metric))": "90.28639173232168"
+        },
+        {
+          "_lowermetric": "lower95(prediction(metric))",
+          "_predictedmetric": "prediction(metric)",
+          "_time": "2026-06-13 07:20:39.000 UTC",
+          "_uppermetric": "upper95(prediction(metric))",
+          "lower95(prediction(metric))": "-40.72126145400278",
+          "metric": "13",
+          "prediction(metric)": "13.0",
+          "time_id": "2",
+          "upper95(prediction(metric))": "66.72126145400279"
+        },
+        {
+          "_lowermetric": "lower95(prediction(metric))",
+          "_predictedmetric": "prediction(metric)",
+          "_time": "2026-06-13 07:20:39.000 UTC",
+          "_uppermetric": "upper95(prediction(metric))",
+          "lower95(prediction(metric))": "13.905269502130686",
+          "metric": "69",
+          "prediction(metric)": "66.96236965871407",
+          "time_id": "3",
+          "upper95(prediction(metric))": "120.01946981529744"
+        }
+      ],
+      "truncated": false,
+      "total_rows": 12
+    }
+  }
+}

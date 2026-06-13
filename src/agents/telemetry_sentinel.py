@@ -88,7 +88,7 @@ class TelemetrySentinel(BaseAgent):
         # Add a realistic delay to show the agent "working" in the UI
         await asyncio.sleep(1.5)
 
-        if settings.DEMO_MODE:
+        if settings.DEMO_MODE or context.get("demo_scenario_active", False):
             return await self._investigate_demo(context)
 
         # Check specific metric or all configured metrics

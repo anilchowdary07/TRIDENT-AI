@@ -96,7 +96,7 @@ class PlatformAuditor(BaseAgent):
 
         log.info("platform_auditor_starting", demo_mode=settings.DEMO_MODE)
         
-        if settings.DEMO_MODE:
+        if settings.DEMO_MODE or context.get("demo_scenario_active", False):
             log.info("platform_auditor_demo_mode", path="demo/sample_data/platform_data.json")
             file_path = os.path.join("demo", "sample_data", "platform_data.json")
             try:
