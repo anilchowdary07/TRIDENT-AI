@@ -9,7 +9,7 @@
 
 ## 🏆 Hackathon Tracks: Observability, Security, & Platform DevEx
 TRIDENT-AI is a unified, agentic swarm that spans all three Splunk Hackathon tracks:
-1. **Observability:** Uses Splunk's CDTSM (Cisco Deep Time Series Model) to autonomously forecast and detect zero-shot metric anomalies in real-time.
+1. **Observability:** Uses Splunk's native ML-SPL predict algorithm to autonomously forecast and detect zero-shot metric anomalies in real-time.
 2. **Security:** Autonomously correlates telemetry anomalies with security events, mapping active threats to the MITRE ATT&CK framework.
 3. **Platform & DevEx:** Continuously audits Splunk's internal health (indexer queues, expensive scheduled searches) to ensure platform stability during a crisis, while leveraging the Model Context Protocol (MCP) to execute zero-touch remediations.
 
@@ -22,7 +22,7 @@ SOC Analysts and Site Reliability Engineers (SREs) are drowning in alerts. When 
 **TRIDENT-AI** is an autonomous agentic swarm that investigates and resolves incidents before a human even wakes up. 
 
 When a metric deviates from its predicted baseline, TRIDENT-AI awakens three distinct AI agents:
-* **TelemetrySentinel:** Analyzes time-series data using CDTSM to quantify the exact severity of the anomaly.
+* **TelemetrySentinel:** Analyzes time-series data using native ML-SPL predict to quantify the exact severity of the anomaly.
 * **ThreatMarshall:** Scours security indexes for concurrent IOCs and maps them to MITRE techniques.
 * **PlatformAuditor:** Checks Splunk's internal health to ensure resource-hogging searches aren't exacerbating the outage.
 
@@ -44,7 +44,7 @@ Platform stability and safety are critical. TRIDENT-AI operates with strict exec
 ![TRIDENT-AI Architecture](architecture.png)
 
 ### 🤖 The Agent Swarm (Primary AI: Foundation AI Security Model)
-*   **TelemetrySentinel:** Executes periodic background polling using the Splunk Python SDK to pull high-cardinality metric streams. *TRIDENT's architecture integrates with CDTSM via Splunk's AI Toolkit for zero-shot quantile forecasting. In this submission's live environment, statistical quantile-band detection (Q20/Q80 via rolling mean ± 2σ) serves as the functional implementation of this layer, following the exact mathematical model CDTSM uses.*
+*   **TelemetrySentinel:** Executes periodic background polling using the Splunk Python SDK to pull high-cardinality metric streams. *TRIDENT's architecture integrates natively with Splunk's built-in ML-SPL predict algorithm for mathematically rigorous anomaly forecasting. The execution utilizes quantile confidence bands (upper95/lower95) for definitive zero-shot detection.*
 *   **ThreatMarshall:** Targets security indexes (e.g., `index=security` or `sourcetype=pan:traffic`), extracting concurrent Indicators of Compromise (IOCs). *TRIDENT is designed to use Splunk Foundation AI for autonomous log classification. In this submission's live environment, a local heuristic log-parsing engine serves as the functional equivalent for Foundation AI, analyzing extracted IOCs to produce comparable classification outputs for the demo's threat patterns.*
 *   **PlatformAuditor:** Queries Splunk’s REST API (`| rest /services/search/jobs`) to evaluate ongoing indexing latency and locate expensive, unoptimized scheduled searches that might be compounding system instability during the crisis.
 
@@ -94,7 +94,7 @@ npm run dev
 
 ### 3. Quick Start without Splunk (evaluation only)
 
-If you do not have a live Splunk instance configured with CDTSM, you can test the entire agentic loop using our simulated event injector:
+If you do not have a live Splunk instance configured with ML-SPL, you can test the entire agentic loop using our simulated event injector:
 
 ```bash
 # Terminal 1: Start backend in Mock/Simulation Mode
